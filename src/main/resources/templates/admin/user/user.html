@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <th:block th:insert="/admin/layouts/head.html"></th:block>
+</head>
+
+<body>
+<div class="wrapper">
+    <th:block th:insert="/admin/layouts/sidebar.html"></th:block>
+    <div class="main">
+        <th:block th:insert="/admin/layouts/navbar.html"></th:block>
+
+        <main class="content">
+            <div class="container-fluid p-0">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">User Management Table</h3>
+                        <nav class="navbar navbar-expand-lg bg-light">
+                            <div class="container-fluid">
+                                <form class="d-flex" role="search" th:action="@{/admin/user/search}" method="get">
+                                    <input class="form-control me-2 fst-italic" type="search"
+                                           placeholder="Enter user's name... " name="nameSearch"
+                                           aria-label="Search">
+                                    <button class="btn btn-outline-success" type="submit">Search</button>
+                                </form>
+                            </div>
+                        </nav>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example1" class="table table-bordered table-striped text-center">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Username</th>
+                                <th>Image</th>
+                                <th>FullName</th>
+                                <th>Email</th>
+                                <th>Phone Number</th>
+                                <th>Address</th>
+                                <th>Status</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="item:${users}">
+                                <td th:text="${item.getId()}"></td>
+                                <td th:text="${item.getUsername()}"></td>
+                                <td><img th:src="@{|/uploads/${item.avatar}|}" width="80px"></td>
+                                <td th:text="${item.getFullName()}"></td>
+                                <td th:text="${item.getEmail()}"></td>
+                                <td th:text="${item.getPhone()}"></td>
+                                <td th:text="${item.getAddress()}"></td>
+                                <td>
+                                    <a class="btn"
+                                       th:classappend="${item.isStatus() ? 'btn-success' : 'btn-danger'}"
+                                       th:href="@{/admin/user/status/{id}(id=${item.id})}"
+                                       th:attr="onclick=${item.isStatus() ? 'return confirm(`Bạn có chắc muốn khóa người dùng này ?`)' : 'return confirm(`Bạn có chắc muốn mở khóa người dùng này ?`)' }">
+                                        <span th:text="${item.isStatus() ? 'Active' : 'Block'}"></span>
+                                    </a>
+                                </td>
+
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+<!--                    <nav aria-label="Page navigation example ">-->
+<!--                        <ul class="pagination float-end mx-4">-->
+<!--                            <li class="page-item disabled">-->
+<!--                                <a class="page-link">Previous</a>-->
+<!--                            </li>-->
+<!--                            <li class="page-item active"><a class="page-link" href="#">1</a></li>-->
+<!--                            <li class="page-item"><a class="page-link" href="#">2</a></li>-->
+<!--                            <li class="page-item"><a class="page-link" href="#">3</a></li>-->
+<!--                            <li class="page-item">-->
+<!--                                <a class="page-link" href="#">Next</a>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </nav>-->
+                    <!-- /.card-body -->
+                </div>
+
+            </div>
+
+        </main>
+
+
+        <th:block th:insert="/admin/layouts/footer.html"></th:block>
+    </div>
+</div>
+
+<th:block th:insert="/admin/layouts/script.html"></th:block>
+
+</body>
+
+</html>

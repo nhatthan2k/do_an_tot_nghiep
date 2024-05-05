@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:insert="/admin/layouts/head.html"></th:block>
+    <style>
+        #previewImage{
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="wrapper">
+    <th:block th:insert="/admin/layouts/sidebar.html"></th:block>
+
+    <div class="main">
+        <th:block th:insert="/admin/layouts/navbar.html"></th:block>
+
+        <main class="content">
+            <div class="container-fluid p-0">
+                <div class="card mx-7 mt-3 px-5">
+                    <div class="card-header px-7 py-3 mx-5">
+                        <form th:action="@{/admin/product/add-product}" th:object="${product}" method="post" enctype="multipart/form-data">
+                            <div class="box-header mb-3">
+                                <h1 class="text-xl-center mt-3" >ADD NEW PRODUCT</h1>
+                            </div>
+                            <div class="alert alert-danger" role="alert" th:if="${err != null}">
+                                <strong><span th:text="${err}"></span></strong>
+                            </div>
+                            <div class="box-body row">
+                                <div class="col-md-6 col-12 mb-3">
+                                    <label class="form-label">Product Name</label>
+                                    <input type="text" class="form-control" th:field="*{name}">
+<!--                                    <small class="form-text text-danger" th:errors="*{productName}"></small>-->
+                                </div>
+
+                                <div class="col-md-12 mb-3">
+                                    <label class="form-label">Descriptions</label>
+                                    <textarea class="form-control"  th:field="*{description}" rows="3"></textarea>
+                                </div>
+                                <div class="col-md-6 col-12 mb-3">
+                                    <label class="form-label">Price</label>
+                                    <input type="number" class="form-control" th:field="*{price}">
+<!--                                    <small class="form-text text-danger" th:errors="*{price}"></small>-->
+                                </div>
+                                <div class="col-md-6 col-12 mb-3">
+                                    <label class="form-label">Stock</label>
+                                    <input type="number" class="form-control" th:field="*{quantity}">
+<!--                                    <small class="form-text text-danger" th:errors="*{stock}"></small>-->
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <img th:src="${product.image}" width="100%" id="previewImage">
+                                </div>
+                                <div class="col-md-9 mb-3">
+                                    <label class="form-label">Image</label>
+                                    <input type="file" class="form-control" th:name="imageProduct" onchange="handleInputImage()">
+                                    <input type="hidden" class="form-control" th:field="*{image}" id="imageChoose">
+<!--                                    <small class="form-text text-danger" th:errors="*{imageUrl}"></small>-->
+                                </div>
+                                <div class="col-md-9 mb-3">
+                                    <label>Category Name</label>
+                                    <select class="form-control" th:field="*{category.id}">
+                                        <option th:each="item : ${categories}" th:value="${item.id}"
+                                                th:text="${item.name}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="box-footer d-flex justify-content-center gap-3">
+                                <a type="button" class="btn btn-secondary" th:href="@{/admin/product}">Close</a>
+                                <button type="submit" class="btn btn-primary">ADD</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <th:block th:insert="/admin/layouts/footer.html"></th:block>
+    </div>
+</div>
+
+<th:block th:insert="/admin/layouts/script.html"></th:block>
+<script>
+    const handleChange = () => {
+        const fileUploader = document.querySelector('#input-file');
+        const getFile = fileUploader.files
+        if (getFile.length !== 0) {
+            const uploadedFile = getFile[0];
+            readFile(uploadedFile);
+        }
+    }
+
+    const readFile = (uploadedFile) => {
+        if (uploadedFile) {
+            const reader = new FileReader();
+            reader.onload = () => {
+                const parent = document.querySelector('.preview-box');
+                parent.innerHTML = `<img class="preview-content" src=${reader.result} />`;
+            };
+
+            reader.readAsDataURL(uploadedFile);
+        }
+    };
+</script>
+<script>
+    function handleInputImage() {
+        // Lấy đối tượng input file
+        var inputElement = document.querySelector('input[type="file"]');
+        var previewImage = document.getElementById('previewImage');
+        var errorElement = document.getElementById('errorElement');
+
+        // Kiểm tra xem người dùng đã chọn file hay chưa
+        if (inputElement.files && inputElement.files[0]) {
+            var file = inputElement.files[0];
+            var fileReader = new FileReader();
+
+            // Kiểm tra loại file
+            if (!file.type.match('image.*')) {
+                // Hiển thị thông báo lỗi
+                errorElement.innerText = 'Vui lòng chọn một tệp ảnh.';
+                previewImage.src = ''; // Xóa ảnh hiển thị trước đó (nếu có)
+                return;
+            }
+
+            // Đọc nội dung của file
+            fileReader.onload = function(e) {
+                // Lấy dữ liệu file đã được đọc
+                var fileContent = e.target.result;
+
+                // Gán dữ liệu file vào ô input hidden
+                document.getElementById('imageChoose').value = fileContent;
+
+                // Hiển thị ảnh trong thẻ <img>
+                previewImage.src = fileContent;
+            };
+
+            // Đọc file làm dữ liệu đầu vào
+            fileReader.readAsDataURL(file);
+        } else {
+            // Người dùng không chọn file, xóa ảnh hiển thị và reset giá trị ô input hidden
+            previewImage.src = '';
+            document.getElementById('imageChoose').value = '';
+        }
+
+        // Xóa thông báo lỗi (nếu có)
+        errorElement.innerText = '';
+    }
+</script>
+</body>
+
+>>>>>>> ec29542e3b58de09fae1b5010409bd981c248138
+</html>

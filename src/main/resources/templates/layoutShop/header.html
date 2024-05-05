@@ -1,0 +1,263 @@
+<header xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <!-- Begin Header Top Area -->
+    <div class="header-top_area bg--white_smoke">
+        <div class="container">
+            <div class="row">
+                <!-- Begin Header Information Area -->
+                <div class="col-lg-3 col-md-6 col-sm-4">
+                    <div class="header-info_area">
+                        <span>Welcome To My Website</span>
+                    </div>
+                </div>
+                <!-- Header Information Area End Here -->
+                <!-- Begin Header Top Right Area -->
+                <div class="col-lg-9 col-md-6 col-sm-8">
+                    <div class="ht-right">
+                        <div class="ht-menu">
+                            <ul>
+                                <li>
+                                    <a sec:authorize="isAuthenticated() and hasRole('ROLE_USER')"
+                                       sec:authentication="principal.users.username" href="/user/account"><i
+                                            class="fa fa-user" x></i></a>
+                                    <a sec:authorize="isAuthenticated() and hasRole('ROLE_ADMIN')"
+                                       sec:authentication="principal.users.username" href="/admin"><i class="fa fa-user"
+                                                                                                      x></i></a>
+                                    <div sec:authorize="!isAuthenticated()">
+                                        <a href="/login">Login</a>
+                                        <a href="/register"></i>Register</a>
+                                    </div>
+                                </li>
+                                <!-- Begin Currency Area -->
+                                <li><a href="javascript:void(0)">USD $<i class="fa fa-chevron-down"></i></a>
+                                    <ul class="ht-dropdown ht-currency">
+                                        <li><a href="javascript:void(0)">EUR €</a></li>
+                                        <li class="active"><a href="javascript:void(0)">USD $</a></li>
+                                    </ul>
+                                </li>
+                                <!-- Currency Area End Here -->
+                                <!-- Begin Language Area -->
+                                <li><a href="javascript:void(0)"><img src="/fe/image/menu/icon/1.jpg"
+                                                                      alt="JB's Language Icon">English <i
+                                        class="fa fa-chevron-down"></i></a>
+                                    <ul class="ht-dropdown">
+                                        <li class="active"><a href="javascript:void(0)"><img
+                                                src="/fe/image/menu/icon/1.jpg" alt="JB's Language Icon">English</a>
+                                        </li>
+                                        <li><a href="javascript:void(0)"><img src="/fe/image/menu/icon/2.jpg"
+                                                                              alt="JB's Language Icon">Français</a></li>
+                                    </ul>
+                                </li>
+                                <!-- Language Area End Here -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Header Top Right Area End Here -->
+            </div>
+        </div>
+    </div>
+    <!-- Header Top Area End Here -->
+    <!-- Begin Header Middle Area -->
+    <div class="header-middle_area">
+        <div class="container">
+            <div class="row">
+                <!-- Begin Header Middle Logo Area -->
+                <div class="col-lg-3 col-md-4 col-sm-6 col-6">
+                    <div class="hm-logo">
+                        <a href="/">
+                            <img src="/fe/image/menu/logo/1.png" alt="JB's Header Logo">
+                        </a>
+                    </div>
+                </div>
+                <!-- Header Middle Logo Area End Here -->
+                <!-- Begin Header Search Area -->
+                <div class="col-xl-7 col-lg-6 col-md-5 d-none d-lg-block">
+                    <div class="header-search_area header-search_area-2">
+                        <form class="header-search_box" th:action="@{/search}" method="get">
+                            <input class="jb-search_input" type="text" placeholder="Enter your search key ..."
+                                   name="keyword" style="width: 90%;">
+                            <button class="jb-search_btn" type="submit"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div>
+                </div>
+                <!-- Header Search Area End Herer -->
+                <!-- Begin JB's Category Menu Area -->
+                <div class="col-lg-3 col-md-5 order-2 order-md-1 order-sm-2 d-lg-none">
+                    <div class="category-menu category-menu-hidden">
+                        <div class="category-heading">
+                            <h2 class="categories-toggle"><span>categories</span></h2>
+                        </div>
+                        <div id="cate-toggle-2" class="category-menu-list">
+                            <ul th:each="item : ${session.categories}">
+                                <li><a th:href="@{/categories/{categoryId}(categoryId=${item.id})}"
+                                       th:text="${item.name}"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- JB's Category Menu Area End Here -->
+                <!-- Begin Header Middle Minicart Area -->
+                <div class="col-lg-2 col-md-3 col-sm-6 col-6 order-1 order-lg-3 order-sm-1" style="margin: auto">
+                    <div class="hm-minicart_area">
+                        <ul>
+                            <li>
+                                <a href="/user/cart">
+                                    <div class="minicart-icon">
+                                        <i class="fa fa-shopping-cart"></i>
+                                    </div>
+                                    <div class="minicart-text"><span>My Cart</span></div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Begin JB's Offcanvas Area -->
+                    <a href="#" class="menu-btn color--white">
+                        <i class="fa fa-bars"></i>
+                    </a>
+                    <!-- JB's Offcanvas Area End Here -->
+                </div>
+                <!-- Header Middle Minicart Area End Here -->
+            </div>
+        </div>
+    </div>
+    <!-- Header Middle Area End Here -->
+    <!-- Begin Header Bottom Area -->
+    <div class="header-bottom_area d-none d-lg-block">
+        <div class="container">
+            <div class="row">
+                <!-- Begin JB's Category Menu Area -->
+                <div class="col-lg-3 col-md-4">
+                    <div class="category-menu category-menu-hidden">
+                        <div class="category-heading">
+                            <h2 class="categories-toggle"><span>categories</span></h2>
+                        </div>
+                        <div id="cate-toggle" class="category-menu-list">
+                            <ul th:each="item : ${session.categories}">
+                                <li><a th:href="@{/categories/{categoryId}(categoryId=${item.id})}"
+                                       th:text="${item.name}"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- JB's Category Menu Area End Here -->
+                <!-- Begin Header Middle Menu Area -->
+                <div class="col-lg-6 position-static d-none d-lg-block">
+                    <div class="hm-menu hm-menu-2">
+                        <nav>
+                            <ul>
+                                <li><a href="/">Home</a></li>
+                                <li><a href="/shop">Shop</a></li>
+                                <li><a href="/blog">Blog</a></li>
+                                <li><a href="/contact">Contact</a></li>
+                                <li><a href="/about">About Us</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header Bottom Area End Here -->
+    <!-- Begin JB's Offcanvas Area -->
+    <div class="offcanvas-menu-wrapper" id="offcanvasMenu">
+        <div class="offcanvas-menu-inner">
+            <div class="container">
+                <a href="#" class="btn-close"><i class="fa fa-times"></i></a>
+                <!-- Begin Offcanvas Search Area -->
+                <div class="offcanvas-search">
+                    <form action="#" class="hm-searchbox">
+                        <input type="text" placeholder="Search for item...">
+                        <button class="search_btn" type="submit"><i class="fa fa-search"></i></button>
+                    </form>
+                </div>
+                <!-- Offcanvas Search Area End Here -->
+                <!-- Begin Offcanvas Navigation Area -->
+                <nav class="offcanvas-navigation">
+                    <ul class="offcanvas-menu">
+                        <li class="menu-item-has-children active"><a href="/"><span
+                                class="mm-text">Home</span></a>
+                        </li>
+                        <li class="menu-item-has-children">
+                            <a href="shop-left-sidebar.html">
+                                <span class="mm-text">Shop</span>
+                            </a>
+                        </li>
+                        <li class="menu-item-has-children">
+                            <a href="blog-left-sidebar.html">
+                                <span class="mm-text">Blog</span>
+                            </a>
+                        </li>
+                        <li class="menu-item-has-children">
+                            <a href="index.html">
+                                <span class="mm-text">Pages</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- Offcanvas Navigation Area End Here -->
+                <!-- Begin Header Top Offcanvas Navigation Area -->
+                <nav class="offcanvas-navigation ht-offcanvas_navigation">
+                    <ul class="offcanvas-menu">
+                        <li class="menu-item-has-children active"><a href="javascript:void(0)"><span
+                                class="mm-text">User Setting</span></a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="my-account.html">
+                                        <span class="mm-text">My Account</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="login-register.html">
+                                        <span class="mm-text">Login | Register</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="menu-item-has-children"><a href="javascript:void(0)"><span
+                                class="mm-text">Currency</span></a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="javascript:void(0)">
+                                        <span class="mm-text">EUR €</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">
+                                        <span class="mm-text">USD $</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="menu-item-has-children"><a href="javascript:void(0)"><span
+                                class="mm-text">Language</span></a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="javascript:void(0)">
+                                        <span class="mm-text">English</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">
+                                        <span class="mm-text">Français</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">
+                                        <span class="mm-text">Romanian</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">
+                                        <span class="mm-text">Japanese</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- Header Top Offcanvas Navigation Area End Here -->
+            </div>
+        </div>
+    </div>
+    <!-- JB's Offcanvas Area End Here -->
+</header>

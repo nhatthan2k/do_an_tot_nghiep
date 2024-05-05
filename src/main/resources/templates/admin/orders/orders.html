@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:insert="/admin/layouts/head.html"></th:block>
+</head>
+
+<body>
+<div class="wrapper">
+    <th:block th:insert="/admin/layouts/sidebar.html"></th:block>
+
+    <div class="main">
+        <th:block th:insert="/admin/layouts/navbar.html"></th:block>
+
+        <main class="content">
+            <div class="container-fluid p-0">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Orders Management Table</h3>
+                        <nav class="navbar navbar-expand-lg bg-light">
+                            <div class="container-fluid">
+                                <form class="d-flex" role="search" th:action="@{/admin/orders/search}" method="get">
+                                    <input class="form-control me-2 fst-italic" type="search" name="nameSearch"
+                                           placeholder="Enter order's customer name..." aria-label="Search">
+                                    <button class="btn btn-outline-success" type="submit">Search</button>
+                                </form>
+                            </div>
+                        </nav>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <div th:if="${mess!=null}"
+                             class="alert alert-primary alert-dismissible fade show"
+                             role="alert" id="alertMessage">
+                            <strong th:text="${mess}"></strong>
+                        </div>
+                        <div th:if="${err!=null}"
+                             class="alert alert-danger alert-dismissible fade show"
+                             role="alert" id="alertMessageErr">
+                            <strong th:text="${err}"></strong>
+                        </div>
+                        <table id="example1" class="table table-bordered table-striped text-center">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>serial number</th>
+                                <th style="width: 130px">Full Name</th>
+                                <th>Phone Number</th>
+                                <th style="width: 160px">Shipping Address</th>
+                                <th>Note</th>
+                                <th>Created Date</th>
+                                <th style="width: 160px">Total</th>
+<!--                                <th>Status</th>-->
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody id="orders">
+                                <tr th:each="item:${orders}">
+                                    <td th:text="${item.id}"></td>
+                                    <td th:text="${item.orderNumber}"></td>
+                                    <td class="w-auto" th:text="${item.receiveName}"></td>
+                                    <td th:text="${item.receivePhone}"></td>
+                                    <td th:text="${item.receiveAddress}"></td>
+                                    <td th:text="${item.note}"></td>
+                                    <td th:text="${item.created}"></td>
+                                    <td class="w-auto"
+                                        th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT') + ' USD'}"></td>
+<!--                                    <td>-->
+<!--                                        <button class="btn" disabled-->
+<!--                                           th:classappend="${item.status == 0 ? 'btn-secondary' : (item.status == 1 ? 'btn-success' : 'btn-danger')}"-->
+<!--                                           >-->
+<!--                                            <span th:text="${item.status == 0 ?'Pending': (item.status == 1 ?'Accepted':'Denided')}"></span>-->
+<!--                                        </button>-->
+<!--                                    </td>-->
+                                    <td>
+                                        <a class="btn btn-outline-primary"
+                                           th:href="@{/admin/orders/details/{id}(id=${item.id})}"
+                                        >Details
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+            </div>
+        </main>
+
+        <th:block th:insert="/admin/layouts/footer.html"></th:block>
+    </div>
+</div>
+
+<th:block th:insert="/admin/layouts/script.html"></th:block>
+
+</body>
+
+>>>>>>> ec29542e3b58de09fae1b5010409bd981c248138
+</html>

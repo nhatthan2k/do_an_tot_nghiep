@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+
+<!-- Mirrored from htmldemo.net/jobaria/jobaria/wishlist.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 21 Feb 2024 06:30:10 GMT -->
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Wishlist || Jobaria - Digital Products Store eCommerce Bootstrap 5 Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="/fe/css/plugins.min.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/fe/css/main.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="/fe/image/favicon.ico">
+</head>
+
+<body>
+    <!-- Begin JB's Body Wrapper Area -->
+    <div class="wrapper">
+        <!-- Begin Loading Area -->
+        <div class="loading">
+            <div class="text-center middle">
+                <div class="lds-ellipsis">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+        <!-- Loading Area End Here -->
+
+        <!-- Begin JB's Header Area -->
+        <th:block th:insert="/layoutShop/header.html"></th:block>
+        <!-- JB's Header Area End Here -->
+
+        <!-- Begin JB's Breadcrumb Area -->
+        <div class="breadcrumb-area">
+            <div class="container">
+                <div class="breadcrumb-content">
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li class="active">Wishlist</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- JB's Breadcrumb Area End Here -->
+
+        <!--Begin JB's Wishlist Area -->
+        <div class="jb-wishlist_area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <form action="javascript:void(0)">
+                            <div class="table-content table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th class="jb-product_remove">remove</th>
+                                            <th class="jb-product-thumbnail">images</th>
+                                            <th class="cart-product-name">Product</th>
+                                            <th class="jb-product-price">Unit Price</th>
+                                            <th class="jb-product-stock-status">Stock Status</th>
+                                            <th class="jb-cart_btn">add to cart</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="item: ${wishLists}">
+                                            <td class="jb-product_remove"><a th:href="@{/user/wish-list/delete/{productId}(productId=${item.product.id})}"><i class="fa fa-trash"
+                                                        title="Remove"></i></a></td>
+                                            <td class="jb-product-thumbnail"><a href="javascript:void(0)"><img th:src="@{|/uploads/${item.product.image}|}" alt="Wishlist Thumbnail" style="width: 70px"></a></td>
+                                            <td class="jb-product-name"><a href="javascript:void(0)" th:text="${item.product.name}"></a></td>
+                                            <td class="jb-product-price"><span class="amount" th:text="${item.product.price}"></span></td>
+                                            <td class="jb-product-stock-status"><span class="in-stock">in stock</span></td>
+                                            <td class="jb-cart_btn"><a th:href="@{/user/cart/{productId}(productId=${item.product.id})}">add to cart</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- JB's Wishlist Area End Here -->
+
+        <!-- Begin JB's Footer Area -->
+        <th:block th:insert="/layoutShop/footer.html"></th:block>
+        <!-- JB's Footer Area End Here -->
+
+    </div>
+    <!-- JB's Body Wrapper Area End Here -->
+    <script src="/fe/js/plugins.min.js"></script>
+    <script src="/fe/js/ajax-mail.js"></script>
+    <script src="/fe/js/main.js"></script>
+</body>
+
+
+<!-- Mirrored from htmldemo.net/jobaria/jobaria/wishlist.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 21 Feb 2024 06:30:10 GMT -->
+</html>

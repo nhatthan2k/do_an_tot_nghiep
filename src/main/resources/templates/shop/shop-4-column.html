@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+
+<!-- Mirrored from htmldemo.net/jobaria/jobaria/shop-4-column.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 21 Feb 2024 06:30:07 GMT -->
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Shop Column Four || Jobaria - Digital Products Store eCommerce Bootstrap 5 Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="/fe/css/plugins.min.css"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="/fe/css/main.css"/>
+    <link rel="shortcut icon" type="image/x-icon" href="/fe/image/favicon.ico">
+</head>
+
+<body>
+<!-- Begin JB's Body Wrapper Area -->
+<div class="wrapper">
+    <!-- Begin Loading Area -->
+    <div class="loading">
+        <div class="text-center middle">
+            <div class="lds-ellipsis">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+    <!-- Loading Area End Here -->
+
+    <th:block th:insert="/layoutShop/header.html"></th:block>
+
+    <!-- Begin JB's Breadcrumb Area -->
+    <div class="breadcrumb-area">
+        <div class="container">
+            <div class="breadcrumb-content">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li class="active">product</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- JB's Breadcrumb Area End Here -->
+
+    <!-- Begin JB's Content Wrapper Area -->
+    <div class="jb-content_wrapper">
+        <div class="container">
+            <div class="row">
+                <!-- Begin Shopbar With Banner Area -->
+                <div class="col-lg-12">
+                    <div class="shopbar-with_banner">
+                        <div class="jb-sidebar_banner">
+                            <div class="banner-item">
+                                <a href="#">
+                                    <img src="/fe/image/shop/2.jpg" alt="JB's Shop Banner">
+                                </a>
+                            </div>
+                        </div>
+                        <!-- Begin Shop Topbar Area -->
+                        <div class="shop-topbar">
+                            <div class="shopbar-inner">
+                                <div class="product-view-mode">
+                                    <ul class="nav shop-item-filter-list" role="tablist">
+                                        <li class="active" role="presentation"><a aria-selected="true"
+                                                                                  class="active show"
+                                                                                  data-bs-toggle="tab" role="tab"
+                                                                                  aria-controls="grid-view"
+                                                                                  href="#grid-view"><i
+                                                class="fa fa-th"></i></a></li>
+                                        <li role="presentation"><a data-bs-toggle="tab" role="tab"
+                                                                   aria-controls="list-view" href="#list-view"><i
+                                                class="fa fa-th-list"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="toolbar-amount">
+                                    <span>There are <span th:text="${#lists.size(products)}"></span> products.</span>
+                                </div>
+                            </div>
+                            <div class="product-select-box">
+                                <div class="product-short">
+                                    <p>Sort By:</p>
+                                    <select class="nice-select">
+                                        <option value="trending">Relevance</option>
+                                        <option value="sales">Name, A to Z)</option>
+                                        <option value="sales">Name, Z to A</option>
+                                        <option value="price">Price, low to high</option>
+                                        <option value="price">Price, high to low</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Shop Topbar Area End Here -->
+                        <!-- Begin Shop Products Wrapper Area -->
+                        <div class="shop-products-wrapper shop-4-column_wrapper">
+                            <div class="tab-content">
+                                <div id="grid-view" class="tab-pane fade active show shop-products_grid"
+                                     role="tabpanel">
+                                    <div class="row">
+                                        <!-- Begin JB's Slide Item Area -->
+                                        <div class="col-lg-3 col-md-4 col-sm-6" th:each="item : ${products}">
+                                            <div class="jb-slide-item">
+                                                <div class="jb-single_product">
+                                                    <div class="product-img" style="height: 200px; overflow: hidden;">
+                                                        <a th:href="@{/products/{productId}(productId=${item.id})}">
+                                                            <img th:src="@{|/uploads/${item.image}|}"
+                                                                 alt="Product Image"
+                                                                 style=" height: 100%; object-fit: cover;">
+                                                        </a>
+                                                        <span class="sticker">New</span>
+                                                        <div><a href="#" title="Quick View" class="quick-view-btn"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#exampleModalCenter"><i
+                                                                class="fa fa-search"></i></a></div>
+                                                    </div>
+                                                    <div class="jb-product_content">
+                                                        <div class="product-desc_info">
+                                                            <div class="manufacturer">
+                                                                <a>Studio Design</a>
+                                                            </div>
+                                                            <h6><a class="product-name"
+                                                                   th:href="@{/products/{productId}(productId=${item.id})}"
+                                                                   th:text="${item.name}"></a></h6>
+                                                            <div class="rating-box">
+                                                                <ul>
+                                                                    <li><i class="fa fa-star"></i></li>
+                                                                    <li><i class="fa fa-star"></i></li>
+                                                                    <li><i class="fa fa-star"></i></li>
+                                                                    <li><i class="fa fa-star"></i></li>
+                                                                    <li><i class="fa fa-star"></i></li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="price-box">
+                                                                <span class="new-price" th:text="${item.price}"></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="add-actions">
+                                                            <ul style="justify-content: center;">
+                                                                <li><a class="jb-wishlist_link"
+                                                                       th:href="@{/user/wish-list/{productId}(productId=${item.id})}"><i
+                                                                        class="fa fa-heart"></i></a></li>
+                                                                <li><a class="jb-add_cart"
+                                                                       th:href="@{/user/cart/{productId}(productId=${item.id})}"><i
+                                                                        class="icon_cart_alt"></i>Add to cart</a></li>
+                                                                <li><a class="jb-sp_link"
+                                                                       th:href="@{/products/{productId}(productId=${item.id})}"><i
+                                                                        class="fa fa-copy"></i></a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- JB's Slide Item Area End Here -->
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="paginatoin-area">
+                                                <div class="row">
+                                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                                        <div class="product-select-box">
+                                                            <div class="product-short">
+                                                                <p>Show</p>
+                                                                <select class="nice-select">
+                                                                    <option value="5">5</option>
+                                                                    <option value="10">10</option>
+                                                                    <option value="15">15</option>
+                                                                    <option value="20">20</option>
+                                                                    <option value="25">25</option>
+                                                                </select>
+                                                                <span>Per Page</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                                        <ul class="pagination-box">
+                                                            <li><a href="#" class="Previous"><i
+                                                                    class="fa fa-chevron-left"></i>
+                                                                Previous</a>
+                                                            </li>
+                                                            <li class="active"><a href="#">1</a></li>
+                                                            <li><a href="#">2</a></li>
+                                                            <li><a href="#">3</a></li>
+                                                            <li>
+                                                                <a href="#" class="Next"> Next <i
+                                                                        class="fa fa-chevron-right"></i></a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="list-view" class="tab-pane fade shop-product-list_view" role="tabpanel">
+                                    <div class="row g-0">
+                                        <div class="col-lg-12" th:each="item : ${products}">
+                                            <div class="row g-0 jb-slide-item">
+                                                <div class="col-lg-4 col-md-4 jb-single_product">
+                                                    <div class="product-img">
+                                                        <a th:href="@{/products/{productId}(productId=${item.id})}">
+                                                            <img th:src="@{|/uploads/${item.image}|}"
+                                                                 alt="Product Image" style="max-width: 300px">
+                                                        </a>
+                                                        <div><a href="#" title="Quick View" class="quick-view-btn"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#exampleModalCenter"><i
+                                                                class="fa fa-search"></i></a></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-8 col-md-8">
+                                                    <div class="jb-product_content">
+                                                        <div class="product-desc_info">
+                                                            <div class="manufacturer">
+                                                                <a>Studio Design</a>
+                                                            </div>
+                                                            <h6><a class="product-name"
+                                                                   th:href="@{/products/{productId}(productId=${item.id})}"
+                                                                   th:text="${item.name}"></a></h6>
+                                                            <div class="rating-box">
+                                                                <ul>
+                                                                    <li><i class="fa fa-star"></i></li>
+                                                                    <li><i class="fa fa-star"></i></li>
+                                                                    <li><i class="fa fa-star"></i></li>
+                                                                    <li><i class="fa fa-star"></i></li>
+                                                                    <li><i class="fa fa-star"></i></li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="product-desc">
+                                                                <p th:text="${item.description}"></p>
+                                                            </div>
+                                                            <div class="price-box">
+                                                                <span class="new-price" th:text="${item.price}"></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="add-actions">
+                                                            <ul>
+                                                                <li><a class="jb-wishlist_link"
+                                                                       th:href="@{/user/wish-list/{productId}(productId=${item.id})}"><i
+                                                                        class="fa fa-heart"></i></a></li>
+                                                                <li><a class="jb-add_cart"
+                                                                       th:href="@{/user/cart/{productId}(productId=${item.id})}"><i
+                                                                        class="icon_cart_alt"></i>Add to cart</a>
+                                                                </li>
+                                                                <li><a class="jb-sp_link"
+                                                                       th:href="@{/products/{productId}(productId=${item.id})}"><i
+                                                                        class="fa fa-copy"></i></a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="paginatoin-area">
+                                                <div class="row">
+                                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                                        <div class="product-select-box">
+                                                            <div class="product-short">
+                                                                <p>Show</p>
+                                                                <select class="nice-select">
+                                                                    <option value="5">5</option>
+                                                                    <option value="10">10</option>
+                                                                    <option value="15">15</option>
+                                                                    <option value="20">20</option>
+                                                                    <option value="25">25</option>
+                                                                </select>
+                                                                <span>Per Page</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                                        <ul class="pagination-box">
+                                                            <li><a href="#" class="Previous"><i
+                                                                    class="fa fa-chevron-left"></i>
+                                                                Previous</a>
+                                                            </li>
+                                                            <li class="active"><a href="#">1</a></li>
+                                                            <li><a href="#">2</a></li>
+                                                            <li><a href="#">3</a></li>
+                                                            <li>
+                                                                <a href="#" class="Next"> Next <i
+                                                                        class="fa fa-chevron-right"></i></a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Shop Products Wrapper Area End Here -->
+                    </div>
+                </div>
+                <!-- Shopbar With Banner Area End Here -->
+            </div>
+        </div>
+    </div>
+    <!-- JB's Content Wrapper Area End Here -->
+
+    <!-- Begin JB's Footer Area -->
+    <th:block th:insert="/layoutShop/footer.html"></th:block>
+    <!-- JB's Footer Area End Here -->
+
+    <!-- Begin JB's Modal Area -->
+    <div class="modal fade modal-wrapper" id="exampleModalCenter">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <div class="modal-inner-area sp-area row">
+                        <div class="col-lg-5 col-md-6 col-sm-6">
+                            <div class="sp-images">
+                                <div class="sp-largeimages">
+                                    <div class="sp-singleimage">
+                                        <img src="/fe/image/product/large-size/1.jpg" alt="JB's Product Image">
+                                    </div>
+                                    <div class="sp-singleimage">
+                                        <img src="/fe/image/product/large-size/2.jpg" alt="JB's Product Image">
+                                    </div>
+                                    <div class="sp-singleimage">
+                                        <img src="/fe/image/product/large-size/3.jpg" alt="JB's Product Image">
+                                    </div>
+                                    <div class="sp-singleimage">
+                                        <img src="/fe/image/product/large-size/4.jpg" alt="JB's Product Image">
+                                    </div>
+                                    <div class="sp-singleimage">
+                                        <img src="/fe/image/product/large-size/5.jpg" alt="JB's Product Image">
+                                    </div>
+                                </div>
+                                <div class="sp-thumbs">
+                                    <div class="sp-singlethumb">
+                                        <img src="/fe/image/product/small-size/1.jpg" alt="product thumb">
+                                    </div>
+                                    <div class="sp-singlethumb">
+                                        <img src="/fe/image/product/small-size/2.jpg" alt="product thumb">
+                                    </div>
+                                    <div class="sp-singlethumb">
+                                        <img src="/fe/image/product/small-size/3.jpg" alt="product thumb">
+                                    </div>
+                                    <div class="sp-singlethumb">
+                                        <img src="/fe/image/product/small-size/4.jpg" alt="product thumb">
+                                    </div>
+                                    <div class="sp-singlethumb">
+                                        <img src="/fe/image/product/small-size/5.jpg" alt="product thumb">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-7 col-md-6 col-sm-6">
+                            <div class="sp-content">
+                                <div class="sp-heading">
+                                    <h5><a href="#"></a></h5>
+                                </div>
+                                <span class="reference">Reference: demo_1</span>
+                                <div class="rating-box">
+                                    <ul>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                    </ul>
+                                </div>
+                                <div class="price-box">
+                                    <span class="new-price">$23.90</span>
+                                    <span class="old-price">$21.51</span>
+                                </div>
+                                <div class="short-desc">
+                                    <p>Janon's first 4K UHD Camcorder, the GX10 has a compact and portable design that
+                                        delivers outstanding video
+                                        quality with remarkable detail. With a combination of incredible features and
+                                        functionality, the GX10 is the
+                                        ideal camcorder for aspiring filmmakers.</p>
+                                </div>
+                                <div class="quantity">
+                                    <label>Quantity</label>
+                                    <div class="cart-plus-minus">
+                                        <input class="cart-plus-minus-box" value="1" type="text">
+                                        <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
+                                        <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
+                                    </div>
+                                    <div class="jb-quantity-btn_area">
+                                        <a class="jb-quantity_btn" href="cart.html">Add To Cart</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="jb-social_link jb-link_share">
+                    <span>Share</span>
+                    <ul>
+                        <li class="facebook">
+                            <a href="https://www.facebook.com/" data-bs-toggle="tooltip" target="_blank"
+                               title="Facebook">
+                                <i class="fab fa-facebook"></i>
+                            </a>
+                        </li>
+                        <li class="twitter">
+                            <a href="https://twitter.com/" data-bs-toggle="tooltip" target="_blank" title="Twitter">
+                                <i class="fab fa-twitter-square"></i>
+                            </a>
+                        </li>
+                        <li class="youtube">
+                            <a href="https://www.youtube.com/" data-bs-toggle="tooltip" target="_blank" title="Youtube">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </li>
+                        <li class="google-plus">
+                            <a href="https://www.plus.google.com/discover" data-bs-toggle="tooltip" target="_blank"
+                               title="Google Plus">
+                                <i class="fab fa-google-plus"></i>
+                            </a>
+                        </li>
+                        <li class="instagram">
+                            <a href="https://rss.com/" data-bs-toggle="tooltip" target="_blank" title="Instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="wishlist-link_share"><a href="wishlist.html"><i class="fa fa-heart"></i> Add to wishlist</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- JB's Modal Area End Here -->
+
+</div>
+<!-- JB's Body Wrapper Area End Here -->
+<script src="/fe/js/plugins.min.js"></script>
+<script src="/fe/js/ajax-mail.js"></script>
+<script src="/fe/js/main.js"></script>
+</body>
+
+
+<!-- Mirrored from htmldemo.net/jobaria/jobaria/shop-4-column.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 21 Feb 2024 06:30:07 GMT -->
+</html>

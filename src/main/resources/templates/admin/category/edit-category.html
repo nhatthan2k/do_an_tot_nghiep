@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:insert="/admin/layouts/head.html"></th:block>
+</head>
+
+<body>
+<div class="wrapper">
+    <nav id="sidebar" class="sidebar js-sidebar">
+        <div class="sidebar-content js-simplebar">
+            <a class="sidebar-brand" href="../index.html">
+                <span class="align-middle">AdminKit</span>
+            </a>
+
+            <ul class="sidebar-nav">
+                <li class="sidebar-header">
+                    Pages
+                </li>
+                <li class="sidebar-item ">
+                    <a class="sidebar-link" href="/admin">
+                        <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Index</span>
+                    </a>
+                </li>
+                <li class="sidebar-item active">
+                    <a class="sidebar-link" href="/admin/category">
+                        <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Category</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="/admin/product">
+                        <i class="align-middle" data-feather="square"></i> <span class="align-middle">Product</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="/admin/user">
+                        <i class="align-middle" data-feather="user"></i> <span class="align-middle">User</span>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+
+    <div class="main">
+        <th:block th:insert="/admin/layouts/navbar.html"></th:block>
+
+        <main class="content">
+            <div class="container-fluid p-0">
+                <div class="card mx-7 mt-3 px-5">
+                    <div class="card-header px-7 py-3 mx-5">
+                        <form th:action="@{/admin/category/edit-category}" th:object="${category}" method="post">
+                            <input type="hidden" class="form-control" th:field="*{id}">
+                            <div class="box-header mb-3">
+                                <h1 class="text-xl-center mt-3" >UPDATE CATEGORY</h1>
+                            </div>
+                            <div class="alert alert-danger" role="alert" th:if="${err != null}">
+                                <strong><span th:text="${err}"></span></strong>
+                            </div>
+                            <div class="box-body">
+                                <div class="mb-3">
+                                    <label class="form-label">Category ID</label>
+                                    <input type="text" class="form-control" th:field="*{id}" readonly disabled>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Category Name</label>
+                                    <input type="text" class="form-control" th:field="*{name}">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Descriptions</label>
+                                    <textarea class="form-control"  th:field="*{description}" rows="3"></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="btn btn-primary active">
+                                        <input type="radio" th:field="*{status}" id="" value="1" th:checked="${category.status}"> Actice
+                                    </label>
+                                    <label class="btn btn-primary">
+                                        <input type="radio" th:field="*{status}"  value="0" th:checked="${!category.status}"> Block
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="box-footer d-flex justify-content-center gap-3">
+                                <a type="button" class="btn btn-secondary" th:href="@{/admin/category}">Close</a>
+                                <button type="submit" class="btn btn-primary">SAVE</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <th:block th:insert="/admin/layouts/footer.html"></th:block>
+    </div>
+</div>
+
+<th:block th:insert="/admin/layouts/script.html"></th:block>
+
+</body>
+
+>>>>>>> ec29542e3b58de09fae1b5010409bd981c248138
+</html>

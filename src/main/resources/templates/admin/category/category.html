@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:insert="/admin/layouts/head.html"></th:block>
+</head>
+
+<body>
+<div class="wrapper">
+
+    <th:block th:insert="/admin/layouts/sidebar.html"></th:block>
+    <div class="main">
+        <th:block th:insert="/admin/layouts/navbar.html"></th:block>
+
+        <main class="content">
+            <div class="container-fluid p-0">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Category Management Table</h3>
+                        <nav class="navbar navbar-expand-lg bg-light">
+                            <div class="container-fluid">
+                                <a class="navbar-brand" href="/admin/category/add-category">
+                                    <button type="button" class="btn btn-success">+ Add new Category</button>
+                                </a>
+                                <form class="d-flex" role="search" th:action="@{/admin/category/search}" method="get">
+                                    <input class="form-control me-2 fst-italic" type="search" name="nameSearch"
+                                           placeholder="Enter category's name..." aria-label="Search">
+                                    <button class="btn btn-outline-success" type="submit">Search</button>
+                                </form>
+                            </div>
+                        </nav>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <div th:if="${mess!=null}"
+                             class="alert alert-primary alert-dismissible fade show"
+                             role="alert" id="alertMessage">
+                            <strong th:text="${mess}"></strong>
+                        </div>
+                        <div th:if="${err!=null}"
+                             class="alert alert-danger alert-dismissible fade show"
+                             role="alert" id="alertMessageErr">
+                            <strong th:text="${err}"></strong>
+                        </div>
+                        <table id="example1" class="table table-bordered table-striped text-center">
+                            <thead>
+                            <tr>
+                                <th>Category ID</th>
+                                <th class="w-25">Name</th>
+                                <th class="w-50">Description</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody id="categories">
+                            <tr th:each="item:${categories}">
+                                <td th:text="${item.getId()}"></td>
+                                <td th:text="${item.getName()}"></td>
+                                <td th:text="${item.getDescription()}"></td>
+                                <td>
+                                    <a type="button" class="btn"
+                                       th:classappend="${item.isStatus() ? 'btn-success' : 'btn-danger'}"
+                                       th:href="@{/admin/category/status/{categoryId}(categoryId=${item.id})}"
+                                       th:attr="onclick=${item.isStatus() ? 'return confirm(`Bạn có chắc muốn khóa danh mục này ?`)' : 'return confirm(`Bạn có chắc muốn mở khóa danh mục này ?`)' }"
+                                    >
+                                        <span th:text="${item.isStatus() ? 'Active' : 'Block'}"></span>
+                                    </a>
+                                </td>
+                                <td style="width: 180px; display: block;">
+                                    <a type="button" class="btn btn-warning"
+                                       th:href="@{/admin/category/edit-category/{categoryId}(categoryId=${item.id})}">Edit</a>
+                                    <a type="button" class="btn btn-danger"
+                                       th:href="@{/admin/category/delete/{categoryId}(categoryId=${item.id})}"
+                                       th:attr="onclick=${'return confirm(`Bạn có chắc muốn xóa danh mục này ?`)'}">delete</a>
+                                </td>
+                            </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+            </div>
+        </main>
+
+        <th:block th:insert="/admin/layouts/footer.html"></th:block>
+    </div>
+</div>
+
+<th:block th:insert="/admin/layouts/script.html"></th:block>
+
+</body>
+
+</html>

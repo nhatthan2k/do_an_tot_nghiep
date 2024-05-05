@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:insert="/admin/layouts/head.html"></th:block>
+    <style>
+        #previewImage{
+           border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="wrapper">
+    <th:block th:insert="/admin/layouts/sidebar.html"></th:block>
+    <div class="main">
+        <th:block th:insert="/admin/layouts/navbar.html"></th:block>
+
+        <main class="content">
+            <div class="container-fluid p-0">
+                <div class="card mx-7 mt-3 px-5">
+                    <div class="card-header px-7 py-3 mx-5">
+                        <form th:action="@{/admin/product/edit-product}" th:object="${product}" method="post" enctype="multipart/form-data">
+                            <input type="hidden" class="form-control" th:field="*{id}">
+                            <div class="box-header mb-3">
+                                <h1 class="text-xl-center mt-3" >UPDATE PRODUCT</h1>
+                            </div>
+                            <div class="box-body row">
+                                <div class="col-md-12 mb-3">
+                                    <label class="form-label">Product ID</label>
+                                    <input type="text" class="form-control" th:field="*{id}" readonly disabled>
+                                </div>
+                                <div class="col-md-6 col-12 mb-3">
+                                    <label class="form-label">Product Name</label>
+                                    <input type="text" class="form-control" th:field="*{name}">
+                                    <small class="form-text text-danger" th:errors="*{name}"></small>
+                                </div>
+                                <div class="col-md-6 col-12 mb-3">
+                                    <label class="form-label">Category Name</label>
+                                    <select class="form-select" th:field="*{category.id}">
+                                        <option th:each="c:${categories}" th:value="${c.id}" th:text="${c.name}" th:selected="${product.category.name}"></option>
+                                    </select>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <label class="form-label">Descriptions</label>
+                                    <textarea class="form-control"  th:field="*{description}" rows="3"></textarea>
+                                </div>
+                                <div class="col-md-6 col-12 mb-3">
+                                    <label class="form-label">Price</label>
+                                    <input type="number" class="form-control" th:field="*{price}">
+                                    <small class="form-text text-danger" th:errors="*{price}"></small>
+                                </div>
+                                <div class="col-md-6 col-12 mb-3">
+                                    <label class="form-label">Stock</label>
+                                    <input type="number" class="form-control" th:field="*{quantity}">
+                                    <small class="form-text text-danger" th:errors="*{quantity}"></small>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <img th:src="@{|/uploads/${product.image}|}" width="100%" id="previewImage">
+                                    <input type="hidden" th:field="*{image}">
+                                </div>
+                                <div class="col-md-9 mb-3">
+                                    <label class="form-label">Image</label>
+                                    <input type="file" class="form-control" th:name="imageProduct" id="imageInput">
+                                </div>
+                            </div>
+                            <div class="box-footer d-flex justify-content-center gap-3">
+                                <a type="button" class="btn btn-secondary" th:href="@{/admin/product}">Close</a>
+                                <button type="submit" class="btn btn-primary">EDIT</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <th:block th:insert="/admin/layouts/footer.html"></th:block>
+    </div>
+</div>
+
+<th:block th:insert="/admin/layouts/script.html"></th:block>
+<script>
+    // Lắng nghe sự kiện khi người dùng chọn file
+    document.getElementById('imageInput').addEventListener('change', function(event) {
+        var file = event.target.files[0];
+        var reader = new FileReader();
+
+        // Đọc nội dung của file
+        reader.onload = function(e) {
+            var imageUrl = e.target.result;
+
+            // Gán URL của ảnh vào thuộc tính src của thẻ <img>
+            document.getElementById('previewImage').src = imageUrl;
+        };
+
+        // Đọc file dưới dạng URL
+        reader.readAsDataURL(file);
+    });
+</script>
+</body>
+
+>>>>>>> ec29542e3b58de09fae1b5010409bd981c248138
+</html>

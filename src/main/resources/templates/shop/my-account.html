@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+
+<!-- Mirrored from htmldemo.net/jobaria/jobaria/my-account.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 21 Feb 2024 06:29:58 GMT -->
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>My Account || Jobaria - Digital Products Store eCommerce Bootstrap 5 Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="/fe/css/plugins.min.css"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="/fe/css/main.css"/>
+    <link rel="shortcut icon" type="image/x-icon" href="/fe/image/favicon.ico">
+</head>
+
+<body>
+<!-- Begin JB's Body Wrapper Area -->
+<div class="wrapper">
+    <!-- Begin Loading Area -->
+    <div class="loading">
+        <div class="text-center middle">
+            <div class="lds-ellipsis">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+    <!-- Loading Area End Here -->
+
+    <!-- Begin JB's Header Area -->
+    <th:block th:insert="/layoutShop/header.html"></th:block>
+    <!-- JB's Header Area End Here -->
+
+    <!-- Begin JB's Breadcrumb Area -->
+    <div class="breadcrumb-area">
+        <div class="container">
+            <div class="breadcrumb-content">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li class="active">My Account</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- JB's Breadcrumb Area End Here -->
+
+    <!-- Begin JB's Page Content Area -->
+    <main class="page-content">
+        <!-- Begin JB's Account Page Area -->
+        <div class="account-page-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <ul class="nav myaccount-tab-trigger" id="account-page-tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="account-dashboard-tab" data-bs-toggle="tab"
+                                   href="#account-dashboard" role="tab" aria-controls="account-dashboard"
+                                   aria-selected="true">Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="account-orders-tab" data-bs-toggle="tab" href="#account-orders"
+                                   role="tab" aria-controls="account-orders" aria-selected="false">Orders</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="account-address-tab" data-bs-toggle="tab"
+                                   href="#account-address" role="tab" aria-controls="account-address"
+                                   aria-selected="false">Change PassWord</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="account-details-tab" data-bs-toggle="tab"
+                                   href="#account-details" role="tab" aria-controls="account-details"
+                                   aria-selected="false">Account Details</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="account-logout-tab" th:href="@{/logout}" role="tab"
+                                   aria-selected="false">Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="tab-content myaccount-tab-content" id="account-page-tab-content">
+                            <div class="tab-pane fade show active" id="account-dashboard" role="tabpanel"
+                                 aria-labelledby="account-dashboard-tab">
+                                <div class="myaccount-dashboard">
+                                    <p>Hello <b th:text="${user.username}"></b></p>
+                                    <p>From your account dashboard you can view your recent orders, manage your shipping
+                                        and billing addresses and <a href="#">edit your password and account details</a>.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="account-orders" role="tabpanel"
+                                 aria-labelledby="account-orders-tab">
+                                <div class="myaccount-orders">
+                                    <h4 class="small-title">MY ORDERS</h4>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-hover">
+                                            <tbody>
+                                            <tr>
+                                                <th>ORDER</th>
+                                                <th>DATE</th>
+                                                <th>STATUS</th>
+                                                <th>TOTAL</th>
+                                                <th></th>
+                                            </tr>
+                                            <tr th:each="item:${orders}">
+                                                <td><a class="account-order-id" href="#" th:text="${item.orderNumber}"></a></td>
+                                                <td th:text="${item.created}"></td>
+                                                <td th:text="${item.status}"></td>
+                                                <td th:text="${item.price}"></td>
+                                                <td><a href="#"
+                                                       class="jb-btn jb-btn_dark jb-btn_sm"><span>View</span></a></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="account-address" role="tabpanel"
+                                 aria-labelledby="account-address-tab">
+                                <div class="myaccount-details">
+                                    <form th:action="@{/user/account/change-password}" method="post"
+                                          th:object="${passwordRequest}" class="jb-form">
+                                        <div class="jb-form-inner">
+                                            <div class="single-input">
+                                                <label for="account-details-oldpass">Current Password(leave blank to
+                                                    leave unchanged)</label>
+                                                <input type="password" id="account-details-oldpass"
+                                                       th:field="*{oldPass}">
+                                            </div>
+                                            <div class="single-input">
+                                                <label for="account-details-newpass">New Password (leave blank to leave
+                                                    unchanged)</label>
+                                                <input type="password" id="account-details-newpass"
+                                                       th:field="*{newPass}">
+                                            </div>
+                                            <div class="single-input">
+                                                <label for="account-details-confpass">Confirm New Password</label>
+                                                <input type="password" id="account-details-confpass"
+                                                       th:field="*{confirmNewPass}">
+                                            </div>
+                                            <div class="single-input">
+                                                <button class="jb-btn jb-btn_dark" type="submit">
+                                                    <span>SAVE CHANGES</span></button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="account-details" role="tabpanel"
+                                 aria-labelledby="account-details-tab">
+                                <div class="myaccount-details">
+                                    <form th:action="@{/user/account/edit-account}" th:object="${user}" method="post"
+                                          enctype="multipart/form-data">
+                                        <div class="jb-form-inner">
+                                            <div class="single-input" style="margin-top: 20px;">
+                                                <label style="margin-bottom: 8px; display: block;">Fullname</label>
+                                                <input style="padding: 0 15px; border: 1px solid #e5e5e5; height: 40px; width: 100%;"
+                                                       type="text" placeholder="Full Name" th:field="*{fullName}">
+                                            </div>
+                                            <div class="single-input" style="margin-top: 20px;">
+                                                <label style="margin-bottom: 8px; display: block;">Username</label>
+                                                <input style="padding: 0 15px; border: 1px solid #e5e5e5; height: 40px; width: 100%;"
+                                                       type="text" placeholder="User Name" th:field="*{username}">
+                                            </div>
+                                            <div class="single-input" style="margin-top: 20px;">
+                                                <label style="margin-bottom: 8px; display: block;">Email
+                                                    Address*</label>
+                                                <input style="padding: 0 15px; border: 1px solid #e5e5e5; height: 40px; width: 100%;"
+                                                       type="email" placeholder="Email Address" th:field="*{email}">
+                                            </div>
+                                            <div class="single-input" style="margin-top: 20px;">
+                                                <label style="margin-bottom: 8px; display: block;">Phone</label>
+                                                <input style="padding: 0 15px; border: 1px solid #e5e5e5; height: 40px; width: 100%;"
+                                                       type="number" placeholder="Phone" th:field="*{phone}">
+                                            </div>
+                                            <div class="single-input" style="margin-top: 20px;">
+                                                <label style="margin-bottom: 8px; display: block;">Address</label>
+                                                <input style="padding: 0 15px; border: 1px solid #e5e5e5; height: 40px; width: 100%;"
+                                                       type="text" placeholder="Address" th:field="*{address}">
+                                            </div>
+                                            <div style="display: flex; margin-top: 20px; align-items: center">
+                                                <div class="col-md-3 mb-3">
+                                                    <img th:src="@{|/uploads/${user.avatar}|}" width="100%"
+                                                         id="previewImage">
+                                                    <input type="hidden" th:field="*{avatar}">
+                                                </div>
+                                                <div class="col-md-9 mb-3">
+                                                    <label class="form-label">Image</label>
+                                                    <input type="file" class="form-control" th:name="imageUser"
+                                                           id="imageInput">
+                                                </div>
+                                            </div>
+                                            <div class="single-input">
+                                                <button class="jb-btn jb-btn_dark" type="submit">
+                                                    <span>SAVE CHANGES</span></button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- JB's Account Page Area End Here -->
+    </main>
+    <!-- JB's Page Content Area End Here -->
+
+    <!-- Begin JB's Footer Area -->
+    <th:block th:insert="/layoutShop/footer.html"></th:block>
+    <!-- JB's Footer Area End Here -->
+
+</div>
+<script>
+    // Lắng nghe sự kiện khi người dùng chọn file
+    document.getElementById('imageInput').addEventListener('change', function (event) {
+        var file = event.target.files[0];
+        var reader = new FileReader();
+
+        // Đọc nội dung của file
+        reader.onload = function (e) {
+            var imageUrl = e.target.result;
+
+            // Gán URL của ảnh vào thuộc tính src của thẻ <img>
+            document.getElementById('previewImage').src = imageUrl;
+        };
+
+        // Đọc file dưới dạng URL
+        reader.readAsDataURL(file);
+    });
+</script>
+<!-- JB's Body Wrapper Area End Here -->
+<script src="/fe/js/plugins.min.js"></script>
+<script src="/fe/js/ajax-mail.js"></script>
+<script src="/fe/js/main.js"></script>
+</body>
+
+
+<!-- Mirrored from htmldemo.net/jobaria/jobaria/my-account.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 21 Feb 2024 06:29:58 GMT -->
+</html>
