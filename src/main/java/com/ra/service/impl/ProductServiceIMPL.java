@@ -21,7 +21,8 @@ public class ProductServiceIMPL implements ProductService {
     private ProductRepository productRepository;
 
     @Override
-    public Page<Product> getAll(Pageable pageable) {
+    public Page<Product> getAll(Pageable pageable, String nameSearch) {
+        if (nameSearch!=null) return productRepository.findAllByNameContainingIgnoreCase(nameSearch, pageable);
         return productRepository.findAll(pageable);
     }
 
@@ -53,10 +54,5 @@ public class ProductServiceIMPL implements ProductService {
     @Override
     public List<Product> getByCategoryId(Long id) {
         return productRepository.findByCategoryId(id);
-    }
-
-    @Override
-    public List<Product> searchByName(String keyword) {
-        return productRepository.searchProductByName(keyword);
     }
 }

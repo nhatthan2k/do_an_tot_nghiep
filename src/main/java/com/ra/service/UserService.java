@@ -12,7 +12,7 @@ import java.util.Optional;
 
 public interface UserService {
     Users handleRegister(Users user);
-    Page<Users> getAll(Pageable pageable);
+    Page<Users> getAll(Pageable pageable, String nameSearch);
     Users findById(Long id);
     void delete(Long id);
     Users save(Users users);

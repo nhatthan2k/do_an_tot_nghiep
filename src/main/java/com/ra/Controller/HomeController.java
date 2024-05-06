@@ -64,11 +64,4 @@ public class HomeController {
         model.addAttribute("shopingCartRequest", shopingCartRequest);
         return "/shop/single-product";
     }
-
-    @GetMapping("/search")
-    public String searchProduct(Model model ,@RequestParam("keyword") String query) {
-        List<Product> products = productService.searchByName(query);
-        model.addAttribute("products", products);
-        return "/shop/shop-4-column";
-    }
 }

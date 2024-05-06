@@ -27,7 +27,8 @@ public class UserController {
         @RequestParam(defaultValue = "12", name = "limit") int limit,
         @RequestParam(defaultValue = "0", name = "page") int page,
         @RequestParam(defaultValue = "id", name = "sort") String sort,
-        @RequestParam(defaultValue = "asc", name = "order") String order
+        @RequestParam(defaultValue = "asc", name = "order") String order,
+        @RequestParam(value = "nameSearch",required = false) String nameSearch
     ) {
         Pageable pageable;
         if (order.equals("asc")) {
@@ -36,8 +37,16 @@ public class UserController {
             pageable = PageRequest.of(page, limit, Sort.by(sort).descending());
         }
 
-        Page<Users> users = userService.getAll(pageable);
+        if (nameSearch != null && nameSearch.trim().isEmpty()) {
+            nameSearch = null;
+        }
+
+        Page<Users> users = userService.getAll(pageable, nameSearch);
+        int currentPage = users.getNumber();
         model.addAttribute("users", users);
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("totalPage", users.getTotalPages());
+        model.addAttribute("nameSearch", nameSearch);
         return "/admin/user/user";
     }
 
@@ -47,12 +56,5 @@ public class UserController {
         user.setStatus(!user.isStatus());
         userService.save(user);
         return "redirect:/admin/user";
-    }
-
-    @GetMapping ("/user/search")
-    public String searchByName(@RequestParam("nameSearch") String keyword, Model model) {
-        List<Users> users = userService.searchByName(keyword);
-        model.addAttribute("users", users);
-        return "/admin/user/user";
     }
 }

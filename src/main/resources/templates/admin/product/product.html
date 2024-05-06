@@ -21,7 +21,7 @@
                                 <a class="navbar-brand" th:href="@{/admin/product/add-product}">
                                     <button type="button" class="btn btn-success">+ Add new Product</button>
                                 </a>
-                                <form class="d-flex" role="search" th:action="@{/admin/product/search}" method="get">
+                                <form class="d-flex" role="search" th:action="@{/admin/product}" method="get">
                                     <input class="form-control me-2 fst-italic" type="search"
                                            placeholder="Enter product's name... "
                                            aria-label="Search"
@@ -75,47 +75,47 @@
                         </table>
                     </div>
                     <!-- /.card-body -->
-<!--                    <nav aria-label="Page navigation example " th:if="${nameSearch==null}">-->
-<!--                        <ul class="pagination float-end mx-4">-->
-<!--                            <li class="page-item disabled">-->
-<!--                                <a class="page-link"-->
-<!--                                   th:href="@{${'/admin/product/' + (currentPage > 1 ? (currentPage - 1) : 1)}}"-->
-<!--                                   th:classappend="${i == 1 ? 'disabled' : ''}">Previous</a>-->
-<!--                            </li>-->
-<!--                            <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPage)}">-->
-<!--                                <a class="page-link" th:href="@{${'/admin/product/' + i}}"-->
-<!--                                   th:classappend="${i==currentPage?'active':''}">-->
-<!--                                    <span th:text="${i}"></span>-->
-<!--                                </a>-->
-<!--                            </li>-->
-<!--                            <li class="page-item">-->
-<!--                                <a class="page-link"-->
-<!--                                   th:href="@{${'/admin/product/' + (currentPage > 1 ? (currentPage - 1) : 1)}}"-->
-<!--                                   th:classappend="${i == totalPage ? 'disabled' : ''}">Next</a>-->
-<!--                            </li>-->
-<!--                        </ul>-->
-<!--                    </nav>-->
-<!--                    <nav aria-label="Page navigation example " th:unless="${nameSearch==null}">-->
-<!--                        <ul class="pagination float-end mx-4">-->
-<!--                            <li class="page-item disabled">-->
-<!--                                <a class="page-link"-->
-<!--                                   th:href="@{${'/admin/product/' + ((currentPage > 1) ? (currentPage - 1) : 1)}(name-search=${nameSearch})}"-->
-<!--                                   th:classappend="${i == 1 ? 'disabled' : ''}">Previous</a>-->
-<!--                            </li>-->
-<!--                            <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPage)}">-->
-<!--                                <a class="page-link"-->
-<!--                                   th:href="@{${'/admin/product/' + i}(name-search=${nameSearch})}"-->
-<!--                                   th:classappend="${i==currentPage?'active':''}">-->
-<!--                                    <span th:text="${i}"></span>-->
-<!--                                </a>-->
-<!--                            </li>-->
-<!--                            <li class="page-item">-->
-<!--                                <a class="page-link"-->
-<!--                                   th:href="@{${'/admin/product/' + (currentPage < totalPage ? (currentPage + 1) : totalPage)}(name-search=${nameSearch})}"-->
-<!--                                   th:classappend="${i == totalPage ? 'disabled' : ''}">Next</a>-->
-<!--                            </li>-->
-<!--                        </ul>-->
-<!--                    </nav>-->
+                    <nav aria-label="Page navigation example " th:if="${nameSearch==null}">
+                        <ul class="pagination float-end mx-4">
+                            <li class="page-item">
+                                <a class="page-link"
+                                   th:href="@{${'/admin/product'}(page=${(currentPage > 0 ? (currentPage - 1) : 0)})}"
+                                   th:classappend="${currentPage == 0 ? 'disabled' : ''}">Previous</a>
+                            </li>
+                            <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPage)}">
+                                <a class="page-link" th:href="@{${'/admin/product'}(page=${i - 1})}"
+                                   th:classappend="${i==currentPage+1?'active':''}">
+                                    <span th:text="${i}"></span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link"
+                                   th:href="@{${'/admin/product'}(page=${(currentPage < totalPage - 1 ? (currentPage + 1) : totalPage)})}"
+                                   th:classappend="${currentPage == totalPage - 1 ? 'disabled' : ''}">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <nav aria-label="Page navigation example " th:unless="${nameSearch==null}">
+                        <ul class="pagination float-end mx-4">
+                            <li class="page-item">
+                                <a class="page-link"
+                                   th:href="@{${'/admin/product'}(page=${currentPage > 0 ? (currentPage - 1) : 0}, nameSearch=${nameSearch})}"
+                                   th:classappend="${currentPage == 0 ? 'disabled' : ''}">Previous</a>
+                            </li>
+                            <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPage)}">
+                                <a class="page-link"
+                                   th:href="@{${'/admin/product'}(page=${i - 1}, nameSearch=${nameSearch})}"
+                                   th:classappend="${i==currentPage+1?'active':''}">
+                                    <span th:text="${i}"></span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link"
+                                   th:href="@{${'/admin/product'}(page=${(currentPage < totalPage - 1 ? (currentPage + 1) : totalPage)}, nameSearch=${nameSearch})}"
+                                   th:classappend="${currentPage == totalPage - 1 ? 'disabled' : ''}">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </main>

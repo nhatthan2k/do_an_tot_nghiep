@@ -34,10 +34,11 @@ public class ProductController {
 
     @GetMapping("/product")
     public String productPage(Model model,
-        @RequestParam(defaultValue = "12", name = "limit") int limit,
+        @RequestParam(defaultValue = "5", name = "limit") int limit,
         @RequestParam(defaultValue = "0", name = "page") int page,
         @RequestParam(defaultValue = "id", name = "sort") String sort,
-        @RequestParam(defaultValue = "asc", name = "order") String order
+        @RequestParam(defaultValue = "asc", name = "order") String order,
+        @RequestParam(value = "nameSearch",required = false) String nameSearch
     ) {
         Pageable pageable;
         if (order.equals("asc")) {
@@ -46,8 +47,16 @@ public class ProductController {
             pageable = PageRequest.of(page, limit, Sort.by(sort).descending());
         }
 
-        Page<Product> products = productService.getAll(pageable);
+        if (nameSearch != null && nameSearch.trim().isEmpty()) {
+            nameSearch = null;
+        }
+
+        Page<Product> products = productService.getAll(pageable, nameSearch);
+        int currentPage = products.getNumber();
         model.addAttribute("products", products);
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("totalPage", products.getTotalPages());
+        model.addAttribute("nameSearch", nameSearch);
         return "/admin/product/product";
     }
 
@@ -97,13 +106,6 @@ public class ProductController {
         }
         productService.save(product);
         return "redirect:/admin/product";
-    }
-
-    @GetMapping ("/product/search")
-    public String searchByName(@RequestParam("nameSearch") String keyword, Model model) {
-        List<Product> products = productService.searchByName(keyword);
-        model.addAttribute("products", products);
-        return "/admin/product/product";
     }
 
     @GetMapping("/product/delete/{id}")

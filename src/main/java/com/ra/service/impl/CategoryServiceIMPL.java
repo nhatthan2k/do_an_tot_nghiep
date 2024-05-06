@@ -17,7 +17,8 @@ public class CategoryServiceIMPL implements CategoryService {
     private CategoryRepository categoryRepository;
 
     @Override
-    public Page<Category> getAll(Pageable pageable) {
+    public Page<Category> getAll(Pageable pageable, String nameSearch) {
+        if (nameSearch!=null) return categoryRepository.findAllByNameContainingIgnoreCase(nameSearch, pageable);
         return categoryRepository.findAll(pageable);
     }
 

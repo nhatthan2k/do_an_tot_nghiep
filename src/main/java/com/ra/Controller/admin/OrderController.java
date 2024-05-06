@@ -29,8 +29,6 @@ public class OrderController {
         return "/admin/orders/orders";
     }
 
-
-
     @GetMapping("/orders/details/{id}")
     public String ordersDetailsPage(@PathVariable Long id, Model model) {
         List<OrderDetail> orderDetails = orderDetailService.getByOrderId(id);

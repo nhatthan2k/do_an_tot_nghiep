@@ -21,10 +21,11 @@ public class CategoryController {
 
     @GetMapping("/category")
     public String categoryPage(Model model,
-        @RequestParam(defaultValue = "12", name = "limit") int limit,
+        @RequestParam(defaultValue = "2", name = "limit") int limit,
         @RequestParam(defaultValue = "0", name = "page") int page,
         @RequestParam(defaultValue = "id", name = "sort") String sort,
-        @RequestParam(defaultValue = "asc", name = "order") String order
+        @RequestParam(defaultValue = "asc", name = "order") String order,
+        @RequestParam(value = "nameSearch",required = false) String nameSearch
     ) {
         Pageable pageable;
         if (order.equals("asc")) {
@@ -33,8 +34,16 @@ public class CategoryController {
             pageable = PageRequest.of(page, limit, Sort.by(sort).descending());
         }
 
-        Page<Category> categories = categoryService.getAll(pageable);
+        if (nameSearch != null && nameSearch.trim().isEmpty()) {
+            nameSearch = null;
+        }
+
+        Page<Category> categories = categoryService.getAll(pageable, nameSearch);
+        int currentPage = categories.getNumber();
         model.addAttribute("categories", categories);
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("totalPage", categories.getTotalPages());
+        model.addAttribute("nameSearch", nameSearch);
         return "/admin/category/category";
     }
 
@@ -73,13 +82,6 @@ public class CategoryController {
     public String update(@ModelAttribute("category") Category category) {
         categoryService.save(category);
         return "redirect:/admin/category";
-    }
-
-    @GetMapping ("/category/search")
-    public String searchByName(@RequestParam("nameSearch") String keyword, Model model) {
-        List<Category> categories = categoryService.searchByName(keyword);
-        model.addAttribute("categories", categories);
-        return "/admin/category/category";
     }
 
     @GetMapping("/category/delete/{id}")

@@ -53,7 +53,8 @@ public class UserServiceIMPL implements UserService {
     }
 
     @Override
-    public Page<Users> getAll(Pageable pageable) {
+    public Page<Users> getAll(Pageable pageable, String nameSearch) {
+        if (nameSearch!=null) return userRepository.findAllByUsernameOrFullNameContainingIgnoreCase(nameSearch, nameSearch, pageable);
         return userRepository.findAll(pageable);
     }
 
