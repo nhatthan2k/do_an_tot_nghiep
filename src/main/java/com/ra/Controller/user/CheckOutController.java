@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class CheckOutController {
     @GetMapping
     public String checkoutHome() {
+
         return "/shop/checkout";
     }
 }

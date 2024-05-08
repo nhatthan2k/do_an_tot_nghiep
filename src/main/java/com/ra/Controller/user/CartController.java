@@ -129,13 +129,11 @@ public class CartController {
     }
 
     @PostMapping("/updateQuantity/{productId}")
-    public String updateQuantity(@PathVariable("productId") Long productId, @RequestParam("quantity") int quantity) {
+    @ResponseBody
+    public ShopingCart updateQuantity(@PathVariable("productId") Long productId, @RequestParam("quantity") int quantity) {
         Long userId = getUserId();
         ShopingCart shopingCart = shopingCartService.findByProductId(userId, productId);
-        if(shopingCart!=null) {
-            shopingCart.setQuantity(quantity);
-            shopingCartService.save(shopingCart);
-        }
-        return "redirect:/user/cart";
+        shopingCart.setQuantity(quantity);
+        return shopingCartService.save(shopingCart);
     }
 }

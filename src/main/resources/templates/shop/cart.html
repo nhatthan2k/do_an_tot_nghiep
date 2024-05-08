@@ -4,148 +4,179 @@
 
 <!-- Mirrored from htmldemo.net/jobaria/jobaria/cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 21 Feb 2024 06:30:10 GMT -->
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Cart || Jobaria - Digital Products Store eCommerce Bootstrap 5 Template</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="/fe/css/plugins.min.css" />
-    <link rel="stylesheet" type="text/css" media="screen" href="/fe/css/main.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/fe/css/plugins.min.css"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="/fe/css/main.css"/>
     <link rel="shortcut icon" type="image/x-icon" href="/fe/image/favicon.ico">
 </head>
 
 <body>
-    <!-- Begin JB's Body Wrapper Area -->
-    <div class="wrapper">
-        <!-- Begin Loading Area -->
-        <div class="loading">
-            <div class="text-center middle">
-                <div class="lds-ellipsis">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
+<!-- Begin JB's Body Wrapper Area -->
+<div class="wrapper">
+    <!-- Begin Loading Area -->
+    <div class="loading">
+        <div class="text-center middle">
+            <div class="lds-ellipsis">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
             </div>
         </div>
-        <!-- Loading Area End Here -->
+    </div>
+    <!-- Loading Area End Here -->
 
-        <!-- Begin JB's Header Area -->
-        <th:block th:insert="/layoutShop/header.html"></th:block>
-        <!-- JB's Header Area End Here -->
+    <!-- Begin JB's Header Area -->
+    <th:block th:insert="/layoutShop/header.html"></th:block>
+    <!-- JB's Header Area End Here -->
 
-        <!-- Begin JB's Breadcrumb Area -->
-        <div class="breadcrumb-area">
-            <div class="container">
-                <div class="breadcrumb-content">
-                    <ul>
-                        <li><a href="/">Home</a></li>
-                        <li class="active">cart</li>
-                    </ul>
-                </div>
+    <!-- Begin JB's Breadcrumb Area -->
+    <div class="breadcrumb-area">
+        <div class="container">
+            <div class="breadcrumb-content">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li class="active">cart</li>
+                </ul>
             </div>
         </div>
-        <!-- JB's Breadcrumb Area End Here -->
+    </div>
+    <!-- JB's Breadcrumb Area End Here -->
 
-        <!-- Begin JB's Cart Area -->
-        <div class="jb-cart-area">
-            <div class="container" id="cart-content">
-                <div class="row">
-                    <div class="col-12">
-                        <form action="javascript:void(0)">
-                            <div class="table-content table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th class="jb-product-remove">remove</th>
-                                            <th class="jb-product-thumbnail">images</th>
-                                            <th class="cart-product-name">Product</th>
-                                            <th class="jb-product-price">Unit Price</th>
-                                            <th class="jb-product-quantity">Quantity</th>
-                                            <th class="jb-product-subtotal">Total</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr th:each="item:${shopingCarts}">
-                                            <td class="jb-product-remove"><a th:href="@{/user/cart/delete/{productId}(productId=${item.product.id})}"><i class="fa fa-trash"
-                                                        title="Remove"></i></a></td>
-                                            <td class="jb-product-thumbnail"><a href="javascript:void(0)"><img th:src="@{|/uploads/${item.product.image}|}" alt="Cart Thumbnail" style="width: 70px"></a></td>
-                                            <td class="jb-product-name"><a href="javascript:void(0)" th:text="${item.product.name}"></a></td>
-                                            <td class="jb-product-price"><span class="amount" th:text="${item.product.price}"></span></td>
-                                            <td class="quantity">
-                                                <label>Quantity</label>
-                                                <div class="cart-plus-minus">
-                                                    <input th:id="'input_' + ${item.id}" class="cart-plus-minus-box" th:value="${item.quantity}" th:data-product-id="${item.product.id}" type="text" onchange="handleChangeQuantity(this.getAttribute('data-product-id'), this.value)">
-                                                    <div th:id="${item.id}" class="dec qtybutton" onclick="decreaseQuantity(this)"><i class="fa fa-angle-down"></i></div>
-                                                    <div th:id="${item.id}" class="inc qtybutton" onclick="increaseQuantity(this)"><i class="fa fa-angle-up"></i></div>
-                                                </div>
-                                            </td>
-                                            <td class="product-subtotal"><span class="amount" th:text="${item.quantity * item.product.price}"></span></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-5 ml-auto">
-                                    <div class="cart-page-total">
-                                        <h2>Cart totals</h2>
-                                        <ul>
-                                            <li>Subtotal <span th:text="${total}"></span></li>
-                                            <li>Total <span th:text="${total}"></span></li>
-                                        </ul>
-<!--                                        <a th:href="@{/user/cart/checkout}">checkout</a>-->
-                                        <a th:href="@{/user/checkout}">checkout</a>
-                                    </div>
+    <!-- Begin JB's Cart Area -->
+    <div class="jb-cart-area">
+        <div class="container" id="cart-content">
+            <div class="row">
+                <div class="col-12">
+                    <form action="javascript:void(0)">
+                        <div class="table-content table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th class="jb-product-remove">remove</th>
+                                    <th class="jb-product-thumbnail">images</th>
+                                    <th class="cart-product-name">Product</th>
+                                    <th class="jb-product-price">Unit Price</th>
+                                    <th class="jb-product-quantity">Quantity</th>
+                                    <th class="jb-product-subtotal">Total</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="item:${shopingCarts}">
+                                    <td class="jb-product-remove"><a
+                                            th:href="@{/user/cart/delete/{productId}(productId=${item.product.id})}"><i
+                                            class="fa fa-trash"
+                                            title="Remove"></i></a></td>
+                                    <td class="jb-product-thumbnail"><a href="javascript:void(0)"><img
+                                            th:src="@{|/uploads/${item.product.image}|}" alt="Cart Thumbnail"
+                                            style="width: 70px"></a></td>
+                                    <td class="jb-product-name"><a href="javascript:void(0)"
+                                                                   th:text="${item.product.name}"></a></td>
+                                    <td class="jb-product-price"><span class="amount"
+                                                                       th:text="${item.product.price}"></span></td>
+                                    <td class="quantity">
+                                        <label>Quantity</label>
+                                        <div class="cart-plus-minus">
+                                            <input th:id="'input_' + ${item.id}" class="cart-plus-minus-box"
+                                                   th:value="${item.quantity}" th:data-product-id="${item.product.id}"
+                                                   type="text"
+                                                   onchange="handleChangeQuantity(this.getAttribute('data-product-id'), this.value)">
+                                            <div th:id="${item.id}" class="dec qtybutton"
+                                                 onclick="decreaseQuantity(this)"><i class="fa fa-angle-down"></i></div>
+                                            <div th:id="${item.id}" class="inc qtybutton"
+                                                 onclick="increaseQuantity(this)"><i class="fa fa-angle-up"></i></div>
+                                        </div>
+                                    </td>
+                                    <td class="product-subtotal"><span class="amount" th:id="'span_' + ${item.product.id}"
+                                                                       th:text="${item.quantity * item.product.price}"></span>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5 ml-auto">
+                                <div class="cart-page-total">
+                                    <h2>Cart totals</h2>
+                                    <ul>
+                                        <li>Subtotal <span id="subtotal" th:text="${total}"></span></li>
+                                        <li>Total <span id="total" th:text="${total}"></span></li>
+                                    </ul>
+                                    <!--                                        <a th:href="@{/user/cart/checkout}">checkout</a>-->
+                                    <a th:href="@{/user/checkout}">checkout</a>
                                 </div>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-        <!-- JB's Cart Area End Here -->
-
-        <!-- Begin JB's Footer Area -->
-        <th:block th:insert="/layoutShop/footer.html"></th:block>
-        <!-- JB's Footer Area End Here -->
-
     </div>
-    <!-- JB's Body Wrapper Area End Here -->
-    <script src="/fe/js/plugins.min.js"></script>
-    <script src="/fe/js/ajax-mail.js"></script>
-    <script src="/fe/js/main.js"></script>
-    <script th:inline="javascript">
-        function increaseQuantity(button) {
-            var input = button.previousElementSibling;
-            input.value = parseInt(input.value) + 1;
-        }
+    <!-- JB's Cart Area End Here -->
 
-        function decreaseQuantity(button) {
-            var cartId = button.getAttribute("id");
-            var input = document.getElementById(`input_${cartId}`);
-            if (parseInt(input.value) > 0) {
-                input.value = parseInt(input.value) - 1;
+    <!-- Begin JB's Footer Area -->
+    <th:block th:insert="/layoutShop/footer.html"></th:block>
+    <!-- JB's Footer Area End Here -->
+
+</div>
+<!-- JB's Body Wrapper Area End Here -->
+<script src="/fe/js/plugins.min.js"></script>
+<script src="/fe/js/ajax-mail.js"></script>
+<script src="/fe/js/main.js"></script>
+<script th:inline="javascript">
+    function increaseQuantity(button) {
+        var cartId = button.getAttribute("id");
+        var input = document.getElementById(`input_${cartId}`);
+        input.value = parseInt(input.value) + 1;
+        handleChangeQuantity(input.getAttribute('data-product-id'),input.value)
+    }
+
+    function decreaseQuantity(button) {
+        var cartId = button.getAttribute("id");
+        var input = document.getElementById(`input_${cartId}`);
+        if (parseInt(input.value) > 0) {
+            input.value = parseInt(input.value) - 1;
+            handleChangeQuantity(input.getAttribute('data-product-id'),input.value)
+        }
+    }
+
+    function handleChangeQuantity(productId, quantity) {
+        var totalPrice = document.getElementById(`span_${productId}`)
+        var subtotalCart = document.getElementById("subtotal")
+        var totalCart = document.getElementById("total")
+
+        $.ajax({
+            type: "POST",
+            url: "/user/cart/updateQuantity/" + productId,
+            data: {
+                quantity: quantity
+            },
+            success: function (response) {
+                var total = response.quantity * response.product.price;
+                totalPrice.innerText = total.toFixed(1);
+                subtotalCart.innerText = handleTotalCart().toFixed(1);
+                totalCart.innerText = handleTotalCart().toFixed(1);
+                console.log(response);
+            },
+            error: function (error) {
+                console.log('Error:', error);
             }
-        }
-        function handleChangeQuantity(productId, quantity) {
-            $.ajax({
-                type: "POST",
-                url: "/user/cart/updateQuantity/" + productId,
-                data: {
-                    quantity: quantity
-                },
-                success: function(response) {
-                    console.log(typeof $('html')[0])
-                    console.log(typeof response)
-                    $('html')[0].innerHTML = response;
-                },
-                error: function (error) {
-                    console.log('Error:', error);
-                }
-            });
-        }
-    </script>
+        });
+    }
+
+    function handleTotalCart() {
+        var totalCartItems = document.querySelectorAll(".product-subtotal span");
+        let sum = 0;
+        totalCartItems.forEach(totalCartItem => {
+            sum += parseFloat(totalCartItem.textContent);
+        });
+
+        return sum;
+    }
+</script>
 </body>
 
-
-<!-- Mirrored from htmldemo.net/jobaria/jobaria/cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 21 Feb 2024 06:30:10 GMT -->
 </html>
