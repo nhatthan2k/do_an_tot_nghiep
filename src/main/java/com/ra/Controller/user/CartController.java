@@ -1,5 +1,6 @@
 package com.ra.Controller.user;
 
+import com.ra.model.dto.request.QuantityRequest;
 import com.ra.model.dto.request.ShopingCartRequest;
 import com.ra.model.entity.Orders;
 import com.ra.model.entity.Product;
@@ -124,6 +125,17 @@ public class CartController {
 
         shopingCarts.forEach(shopingCart -> shopingCartService.delete(shopingCart.getId()));
 
+        return "redirect:/user/cart";
+    }
+
+    @PostMapping("/updateQuantity/{productId}")
+    public String updateQuantity(@PathVariable("productId") Long productId, @RequestParam("quantity") int quantity) {
+        Long userId = getUserId();
+        ShopingCart shopingCart = shopingCartService.findByProductId(userId, productId);
+        if(shopingCart!=null) {
+            shopingCart.setQuantity(quantity);
+            shopingCartService.save(shopingCart);
+        }
         return "redirect:/user/cart";
     }
 }

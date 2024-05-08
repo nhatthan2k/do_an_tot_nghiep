@@ -6,6 +6,8 @@ import com.ra.model.entity.Users;
 import com.ra.repository.OrderRepository;
 import com.ra.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,8 +19,8 @@ public class OrderServiceIMPL implements OrderService {
     private OrderRepository orderRepository;
 
     @Override
-    public List<Orders> findAll() {
-        return orderRepository.findAll();
+    public Page<Orders> findAll(Pageable pageable) {
+        return orderRepository.findAll(pageable);
     }
 
     @Override

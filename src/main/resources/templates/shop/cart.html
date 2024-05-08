@@ -48,7 +48,7 @@
 
         <!-- Begin JB's Cart Area -->
         <div class="jb-cart-area">
-            <div class="container">
+            <div class="container" id="cart-content">
                 <div class="row">
                     <div class="col-12">
                         <form action="javascript:void(0)">
@@ -62,7 +62,6 @@
                                             <th class="jb-product-price">Unit Price</th>
                                             <th class="jb-product-quantity">Quantity</th>
                                             <th class="jb-product-subtotal">Total</th>
-                                            <th class="jb-product-subtotal">Edit</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -72,35 +71,19 @@
                                             <td class="jb-product-thumbnail"><a href="javascript:void(0)"><img th:src="@{|/uploads/${item.product.image}|}" alt="Cart Thumbnail" style="width: 70px"></a></td>
                                             <td class="jb-product-name"><a href="javascript:void(0)" th:text="${item.product.name}"></a></td>
                                             <td class="jb-product-price"><span class="amount" th:text="${item.product.price}"></span></td>
-                                            <form th:action="@{/user/cart/edit-cart/{cartId}(cartId=${item.id})}" method="post">
-                                                <td class="quantity">
-                                                    <label>Quantity</label>
-                                                    <div class="cart-plus-minus">
-                                                        <input class="cart-plus-minus-box" th:value="${item.quantity}" type="text" name="quantity">
-                                                        <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                                        <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
-                                                    </div>
-                                                </td>
-                                                <td class="product-subtotal"><span class="amount" th:text="${item.quantity * item.product.price}"></span></td>
-                                                <td class="jb-product-remove"><button type="submit" ><i class="fa fa-pen" title="edit"></i></button></td>
-                                            </form>
+                                            <td class="quantity">
+                                                <label>Quantity</label>
+                                                <div class="cart-plus-minus">
+                                                    <input th:id="'input_' + ${item.id}" class="cart-plus-minus-box" th:value="${item.quantity}" th:data-product-id="${item.product.id}" type="text" onchange="handleChangeQuantity(this.getAttribute('data-product-id'), this.value)">
+                                                    <div th:id="${item.id}" class="dec qtybutton" onclick="decreaseQuantity(this)"><i class="fa fa-angle-down"></i></div>
+                                                    <div th:id="${item.id}" class="inc qtybutton" onclick="increaseQuantity(this)"><i class="fa fa-angle-up"></i></div>
+                                                </div>
+                                            </td>
+                                            <td class="product-subtotal"><span class="amount" th:text="${item.quantity * item.product.price}"></span></td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
-<!--                            <div class="row">-->
-<!--                                <div class="col-12">-->
-<!--                                    <div class="coupon-all">-->
-<!--                                        <div class="coupon">-->
-<!--                                            <input id="coupon_code" class="input-text" name="coupon_code" value="" placeholder="Coupon code" type="text">-->
-<!--                                            <input class="button" name="apply_coupon" value="Apply coupon" type="submit">-->
-<!--                                        </div>-->
-<!--                                        <div class="coupon2">-->
-<!--                                            <input class="button" name="update_cart" value="Update cart" type="submit">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
                             <div class="row">
                                 <div class="col-md-5 ml-auto">
                                     <div class="cart-page-total">
@@ -109,7 +92,8 @@
                                             <li>Subtotal <span th:text="${total}"></span></li>
                                             <li>Total <span th:text="${total}"></span></li>
                                         </ul>
-                                        <a th:href="@{/user/cart/checkout}">checkout</a>
+<!--                                        <a th:href="@{/user/cart/checkout}">checkout</a>-->
+                                        <a th:href="@{/user/checkout}">checkout</a>
                                     </div>
                                 </div>
                             </div>
@@ -129,6 +113,37 @@
     <script src="/fe/js/plugins.min.js"></script>
     <script src="/fe/js/ajax-mail.js"></script>
     <script src="/fe/js/main.js"></script>
+    <script th:inline="javascript">
+        function increaseQuantity(button) {
+            var input = button.previousElementSibling;
+            input.value = parseInt(input.value) + 1;
+        }
+
+        function decreaseQuantity(button) {
+            var cartId = button.getAttribute("id");
+            var input = document.getElementById(`input_${cartId}`);
+            if (parseInt(input.value) > 0) {
+                input.value = parseInt(input.value) - 1;
+            }
+        }
+        function handleChangeQuantity(productId, quantity) {
+            $.ajax({
+                type: "POST",
+                url: "/user/cart/updateQuantity/" + productId,
+                data: {
+                    quantity: quantity
+                },
+                success: function(response) {
+                    console.log(typeof $('html')[0])
+                    console.log(typeof response)
+                    $('html')[0].innerHTML = response;
+                },
+                error: function (error) {
+                    console.log('Error:', error);
+                }
+            });
+        }
+    </script>
 </body>
 
 

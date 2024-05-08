@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/user/checkout")
-public class checkoutController {
+public class CheckOutController {
     @GetMapping
     public String checkoutHome() {
         return "/shop/checkout";

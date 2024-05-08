@@ -7,7 +7,44 @@
 
 <body>
 <div class="wrapper">
-    <th:block th:insert="/admin/layouts/sidebar.html"></th:block>
+    <nav id="sidebar" class="sidebar js-sidebar">
+        <div class="sidebar-content js-simplebar">
+            <a class="sidebar-brand" href="/admin">
+                <span class="align-middle">Administation</span>
+            </a>
+
+            <ul class="sidebar-nav">
+                <li class="sidebar-header">
+                    Pages
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="/admin">
+                        <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Index</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="/admin/user">
+                        <i class="align-middle" data-feather="user"></i> <span class="align-middle">User</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="/admin/product">
+                        <i class="align-middle" data-feather="square"></i> <span class="align-middle">Product</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="/admin/category">
+                        <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Category</span>
+                    </a>
+                </li>
+                <li class="sidebar-item active">
+                    <a class="sidebar-link" href="/admin/orders">
+                        <i class="align-middle" data-feather="user"></i> <span class="align-middle">Orders</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
     <div class="main">
         <th:block th:insert="/admin/layouts/navbar.html"></th:block>
@@ -50,13 +87,13 @@
                                 <th>Note</th>
                                 <th>Created Date</th>
                                 <th style="width: 160px">Total</th>
-<!--                                <th>Status</th>-->
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
                             <tbody id="orders">
-                                <tr th:each="item:${orders}">
-                                    <td th:text="${item.id}"></td>
+                                <tr th:each="item, index:${orders}">
+                                    <td th:text="${index.index + 1}"></td>
                                     <td th:text="${item.orderNumber}"></td>
                                     <td class="w-auto" th:text="${item.receiveName}"></td>
                                     <td th:text="${item.receivePhone}"></td>
@@ -65,13 +102,13 @@
                                     <td th:text="${item.created}"></td>
                                     <td class="w-auto"
                                         th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT') + ' USD'}"></td>
-<!--                                    <td>-->
-<!--                                        <button class="btn" disabled-->
+                                    <td>
+                                        <button class="btn" disabled>
 <!--                                           th:classappend="${item.status == 0 ? 'btn-secondary' : (item.status == 1 ? 'btn-success' : 'btn-danger')}"-->
 <!--                                           >-->
-<!--                                            <span th:text="${item.status == 0 ?'Pending': (item.status == 1 ?'Accepted':'Denided')}"></span>-->
-<!--                                        </button>-->
-<!--                                    </td>-->
+                                            <span th:text="${item.status}"></span>
+                                        </button>
+                                    </td>
                                     <td>
                                         <a class="btn btn-outline-primary"
                                            th:href="@{/admin/orders/details/{id}(id=${item.id})}"
@@ -84,6 +121,26 @@
                         </table>
                     </div>
                     <!-- /.card-body -->
+                    <nav aria-label="Page navigation example ">
+                        <ul class="pagination float-end mx-4">
+                            <li class="page-item">
+                                <a class="page-link"
+                                   th:href="@{${'/admin/orders'}(page=${(currentPage > 0 ? (currentPage - 1) : 0)})}"
+                                   th:classappend="${currentPage == 0 ? 'disabled' : ''}">Previous</a>
+                            </li>
+                            <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPage)}">
+                                <a class="page-link" th:href="@{${'/admin/orders'}(page=${i - 1})}"
+                                   th:classappend="${i==currentPage+1?'active':''}">
+                                    <span th:text="${i}"></span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link"
+                                   th:href="@{${'/admin/orders'}(page=${(currentPage < totalPage - 1 ? (currentPage + 1) : totalPage)})}"
+                                   th:classappend="${currentPage == totalPage - 1 ? 'disabled' : ''}">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </main>
@@ -96,5 +153,4 @@
 
 </body>
 
->>>>>>> ec29542e3b58de09fae1b5010409bd981c248138
 </html>
