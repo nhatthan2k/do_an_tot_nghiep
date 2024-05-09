@@ -72,7 +72,8 @@
                                             <td class="jb-product-name"><a href="javascript:void(0)" th:text="${item.product.name}"></a></td>
                                             <td class="jb-product-price"><span class="amount" th:text="${item.product.price}"></span></td>
                                             <td class="jb-product-stock-status"><span class="in-stock">in stock</span></td>
-                                            <td class="jb-cart_btn"><a th:href="@{/user/cart/{productId}(productId=${item.product.id})}">add to cart</a></td>
+                                            <td class="jb-cart_btn"><a th:data-product-id="${item.product.id}"
+                                                                       href="javascript:void(0)" onclick="handleCartClick(this.getAttribute('data-product-id'))">add to cart</a></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -93,6 +94,21 @@
     <script src="/fe/js/plugins.min.js"></script>
     <script src="/fe/js/ajax-mail.js"></script>
     <script src="/fe/js/main.js"></script>
+    <script th:inline="javascript">
+        function handleCartClick(productId) {
+            $.ajax({
+                type: "GET",
+                url: "/user/cart/" + productId,
+                success: function (response) {
+                    console.log(response)
+                    alert("Đã thêm vào giỏ hàng thành công");
+                },
+                error: function (error) {
+                    console.log('Error:', error);
+                }
+            });
+        }
+    </script>
 </body>
 
 

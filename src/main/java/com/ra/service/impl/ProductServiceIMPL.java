@@ -42,8 +42,8 @@ public class ProductServiceIMPL implements ProductService {
     }
 
     @Override
-    public List<Product> getByNameOrDes(String name, String description) {
-        return productRepository.findByNameOrDescription(name, description);
+    public Page<Product> searchByName(String name, Pageable pageable) {
+        return productRepository.findAllByNameContainingIgnoreCase(name, pageable);
     }
 
     @Override

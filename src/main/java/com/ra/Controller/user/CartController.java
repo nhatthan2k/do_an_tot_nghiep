@@ -68,14 +68,16 @@ public class CartController {
     }
 
     @PostMapping("/add-cart/{id}")
-    public String createCart(@PathVariable("id") Long id, @ModelAttribute("shopingCartRequest") ShopingCartRequest shopingCartRequest) {
+    public String createCart(@PathVariable("id") Long id, @RequestParam("quantity") int quantity) {
         Long userId = getUserId();
         ShopingCart shopingCart = shopingCartService.findByProductId(userId, id);
+        ShopingCartRequest shopingCartRequest = new ShopingCartRequest();
         if (shopingCart == null) {
+            shopingCartRequest.setQuantity(quantity);
             shopingCartRequest.setProductId(id);
             shopingCartService.add(shopingCartRequest, userId);
         } else {
-            shopingCart.setQuantity(shopingCart.getQuantity() + shopingCartRequest.getQuantity());
+            shopingCart.setQuantity(shopingCart.getQuantity() + quantity);
             shopingCartService.save(shopingCart);
         }
         return "redirect:/user/cart";
@@ -104,28 +106,34 @@ public class CartController {
         return "redirect:/user/cart";
     }
 
-    @GetMapping("/checkout")
-    public String checkOut() {
+    @PostMapping("/checkout")
+    public String checkOut(@ModelAttribute("user") Users newUser) {
         Long userId = getUserId();
+    //  lấy ra giỏ hàng của tài khoản đang đăng nhập
         List<ShopingCart> shopingCarts = shopingCartService.getAll(userId);
-
+    //  lấy ra thông tin tài khoản đang đăng nhập
         Users user = userService.findById(userId);
+        user.setFullName(newUser.getFullName());
+        user.setAddress(newUser.getAddress());
+        user.setEmail(newUser.getEmail());
+        user.setPhone(newUser.getPhone());
 
+    //  tổng tiền cần thanh toán
         double totalPrice = shopingCarts.stream()
                 .mapToDouble(shopingCart -> shopingCart.getProduct().getPrice() * shopingCart.getQuantity())
                 .sum();
-
+    //  tạo mới order
         Orders order = orderService.add(user, totalPrice);
-
+    //  tạo mới order detail
         for (ShopingCart shopingCart: shopingCarts) {
             int orderQuantity = shopingCart.getQuantity();
             Product product = shopingCart.getProduct();
             orderDetailService.add(product, order, orderQuantity);
         }
-
+    //  Xóa tất cả sản phẩm khỏi giỏ hàng
         shopingCarts.forEach(shopingCart -> shopingCartService.delete(shopingCart.getId()));
 
-        return "redirect:/user/cart";
+        return "redirect:/";
     }
 
     @PostMapping("/updateQuantity/{productId}")

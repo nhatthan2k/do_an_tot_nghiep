@@ -214,11 +214,11 @@
                                             </div>
                                             <div class="add-actions">
                                                 <ul>
-                                                    <li><a class="jb-wishlist_link"
-                                                           th:href="@{/user/wish-list/{productId}(productId=${item.id})}"><i
+                                                    <li><a class="jb-wishlist_link" th:data-product-id="${item.id}"
+                                                           href="javascript:void(0)" onclick="handleWishListClick(this.getAttribute('data-product-id'))"><i
                                                             class="fa fa-heart"></i></a></li>
-                                                    <li><a class="jb-add_cart"
-                                                           th:href="@{/user/cart/{productId}(productId=${item.id})}"><i
+                                                    <li><a class="jb-add_cart" th:data-product-id="${item.id}"
+                                                           href="javascript:void(0)" onclick="handleCartClick(this.getAttribute('data-product-id'))"><i
                                                             class="icon_cart_alt"></i>Add to cart</a></li>
                                                     <li><a class="jb-sp_link"
                                                            th:href="@{/products/{productId}(productId=${item.id})}"><i
@@ -4424,6 +4424,34 @@
 <script src="/fe/js/plugins.min.js"></script>
 <script src="/fe/js/ajax-mail.js"></script>
 <script src="/fe/js/main.js"></script>
+<script th:inline="javascript">
+    function handleWishListClick(productId) {
+        $.ajax({
+            type: "GET",
+            url: "/user/wish-list/" + productId,
+            success: function (response) {
+                console.log(response)
+                alert("Đã thêm vào danh sách yêu thích thành công");
+            },
+            error: function (error) {
+                console.log('Error:', error);
+            }
+        });
+    }
+    function handleCartClick(productId) {
+        $.ajax({
+            type: "GET",
+            url: "/user/cart/" + productId,
+            success: function (response) {
+                console.log(response)
+                alert("Đã thêm vào giỏ hàng thành công");
+            },
+            error: function (error) {
+                console.log('Error:', error);
+            }
+        });
+    }
+</script>
 </body>
 
 

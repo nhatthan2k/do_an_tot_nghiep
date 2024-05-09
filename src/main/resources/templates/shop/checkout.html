@@ -11,6 +11,11 @@
     <link rel="stylesheet" type="text/css" media="screen" href="/fe/css/plugins.min.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="/fe/css/main.css" />
     <link rel="shortcut icon" type="image/x-icon" href="/fe/image/favicon.ico">
+    <style>
+        .table td {
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
@@ -51,32 +56,32 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6 col-12">
-                        <form action="javascript:void(0)">
+                        <form action="/user/cart/checkout" th:object="${user}" method="POST" id="formCheckOut">
                             <div class="checkbox-form">
                                 <h3 style="margin-top: 15px;">Billing Details</h3>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="checkout-form-list">
                                             <label>Full Name <span class="required">*</span></label>
-                                            <input placeholder="" type="text">
+                                            <input placeholder="" th:field="*{fullName}" type="text">
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="checkout-form-list">
                                             <label>Address <span class="required">*</span></label>
-                                            <input placeholder="Street address" type="text">
+                                            <input placeholder="Street address" th:field="*{address}" type="text">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="checkout-form-list">
                                             <label>Email Address <span class="required">*</span></label>
-                                            <input placeholder="" type="email">
+                                            <input placeholder="" th:field="*{email}" type="email">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="checkout-form-list">
                                             <label>Phone <span class="required">*</span></label>
-                                            <input type="text">
+                                            <input type="text" th:field="*{phone}">
                                         </div>
                                     </div>
                                 </div>
@@ -99,29 +104,27 @@
                                     <thead>
                                         <tr>
                                             <th class="cart-product-name">Product</th>
+                                            <th class="cart-product-name">Quantity</th>
                                             <th class="cart-product-total">Total</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody th:each="item:${shopingCarts}">
                                         <tr class="cart_item">
-                                            <td class="cart-product-name"> Vestibulum suscipit<strong class="product-quantity">
-                                                    × 1</strong></td>
-                                            <td class="cart-product-total"><span class="amount">£165.00</span></td>
-                                        </tr>
-                                        <tr class="cart_item">
-                                            <td class="cart-product-name"> Vestibulum suscipit<strong class="product-quantity">
-                                                    × 1</strong></td>
-                                            <td class="cart-product-total"><span class="amount">£165.00</span></td>
+                                            <td class="cart-product-name" th:text="${item.product.name}"></td>
+                                            <td><strong class="product-quantity" th:text="'× '+${item.quantity}"></strong></td>
+                                            <td class="cart-product-total"><span class="amount" th:text="${item.quantity * item.product.price}"></span></td>
                                         </tr>
                                     </tbody>
                                     <tfoot>
                                         <tr class="cart-subtotal">
                                             <th>Cart Subtotal</th>
-                                            <td><span class="amount">£215.00</span></td>
+                                            <td></td>
+                                            <td><span class="amount" th:text="${total}"></span></td>
                                         </tr>
                                         <tr class="order-total">
                                             <th>Order Total</th>
-                                            <td><strong><span class="amount">£215.00</span></strong></td>
+                                            <td></td>
+                                            <td><strong><span class="amount" th:text="${total}"></span></strong></td>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -176,7 +179,7 @@
                                         </div>
                                     </div>
                                     <div class="order-button-payment">
-                                        <input value="Place order" type="submit">
+                                        <input value="Place order" type="submit" onclick="handleCheckOutSubmit()">
                                     </div>
                                 </div>
                             </div>
@@ -196,6 +199,11 @@
     <script src="/fe/js/plugins.min.js"></script>
     <script src="/fe/js/ajax-mail.js"></script>
     <script src="/fe/js/main.js"></script>
+    <script th:inline="javascript">
+        function handleCheckOutSubmit() {
+            document.getElementById('formCheckOut').submit();
+        }
+    </script>
 </body>
 
 

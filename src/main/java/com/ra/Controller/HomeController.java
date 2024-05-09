@@ -48,6 +48,26 @@ public class HomeController {
         return "/index";
     }
 
+    @GetMapping("/search")
+    public String searchHome(Model model,
+        @RequestParam(defaultValue = "12", name = "limit") int limit,
+        @RequestParam(defaultValue = "0", name = "page") int page,
+        @RequestParam(defaultValue = "id", name = "sort") String sort,
+        @RequestParam(defaultValue = "asc", name = "order") String order,
+        @RequestParam("keyword") String keyWord
+    ) {
+        Pageable pageable;
+        if (order.equals("asc")) {
+            pageable = PageRequest.of(page, limit, Sort.by(sort).ascending());
+        } else {
+            pageable = PageRequest.of(page, limit, Sort.by(sort).descending());
+        }
+        Page<Product> products = productService.searchByName(keyWord, pageable);
+
+        model.addAttribute("products", products);
+        return "/shop/shop-4-column";
+    }
+
     @GetMapping("/categories/{id}")
     public String CategoryShop(Model model,@PathVariable("id") Long id) {
         List<Product> products = productService.getByCategoryId(id);
