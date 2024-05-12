@@ -73,9 +73,8 @@
                 <!-- Begin Header Search Area -->
                 <div class="col-xl-7 col-lg-6 col-md-5 d-none d-lg-block">
                     <div class="header-search_area header-search_area-2">
-                        <form class="header-search_box" th:action="@{/search}" method="get">
-                            <input class="jb-search_input" type="text" placeholder="Enter your search key ..."
-                                   name="keyword" style="width: 90%;">
+                        <form class="header-search_box" th:action="@{/search}" method="get" onsubmit="return validateForm()">
+                            <input class="jb-search_input" type="text" placeholder="Enter your search key ..." name="keyword" style="width: 90%;">
                             <button class="jb-search_btn" type="submit"><i class="fa fa-search"></i></button>
                         </form>
                     </div>
@@ -261,3 +260,13 @@
     </div>
     <!-- JB's Offcanvas Area End Here -->
 </header>
+
+<script>
+    function validateForm() {
+        var keyword = document.forms["searchForm"]["keyword"].value.trim();
+        console.log(keyword);
+        if (keyword == "") {
+            return false; // Ngăn form được gửi đi
+        }
+    }
+</script>

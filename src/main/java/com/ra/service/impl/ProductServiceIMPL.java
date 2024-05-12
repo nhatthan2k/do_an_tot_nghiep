@@ -55,4 +55,9 @@ public class ProductServiceIMPL implements ProductService {
     public List<Product> getByCategoryId(Long id) {
         return productRepository.findByCategoryId(id);
     }
+
+    @Override
+    public Page<Product> getByCategoryId(Long id, Pageable pageable) {
+        return productRepository.findByCategoryId(id, pageable);
+    }
 }

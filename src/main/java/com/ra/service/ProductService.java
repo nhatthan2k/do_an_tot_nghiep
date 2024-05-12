@@ -15,6 +15,6 @@ public interface ProductService {
     void delete(Long id);
     Page<Product> searchByName(String name, Pageable pageable);
     Page<Product> getByCategoryStatus(Pageable pageable, Boolean status);
-
     List<Product> getByCategoryId(Long id);
+    Page<Product> getByCategoryId(Long id, Pageable pageable);
 }
