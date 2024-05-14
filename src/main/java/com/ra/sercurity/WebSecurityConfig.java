@@ -44,6 +44,7 @@ public class WebSecurityConfig {
                         .loginProcessingUrl("/login")
                         .usernameParameter("username")
                         .passwordParameter("password")
+                        .failureUrl("/loginError")
                         .successHandler(roleBasedAuthenticationSuccessHandler())
                 )
                 .logout(logout -> logout.logoutUrl("/logout").logoutSuccessUrl("/login"))

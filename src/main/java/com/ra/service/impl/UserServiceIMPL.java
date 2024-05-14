@@ -1,5 +1,6 @@
 package com.ra.service.impl;
 
+import com.ra.model.dto.request.UserRegister;
 import com.ra.model.entity.ERoles;
 import com.ra.model.entity.Roles;
 import com.ra.model.entity.Users;
@@ -28,11 +29,7 @@ public class UserServiceIMPL implements UserService {
     private RoleService roleService;
 
     @Override
-    public Users handleRegister(Users user) {
-        if (userRepository.existsByUsername(user.getUsername())) {
-            throw new RuntimeException("username is exists");
-        }
-
+    public Users handleRegister(UserRegister user) {
         Set<Roles> roles = new HashSet<>();
         roles.add(roleService.findByRoleName(ERoles.ROLE_USER));
 

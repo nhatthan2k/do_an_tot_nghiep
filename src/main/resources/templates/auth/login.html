@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <html lang="zxx">
-
-
 <!-- Mirrored from htmldemo.net/jobaria/jobaria/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 21 /feb 2024 06:30:10 GMT -->
 <head>
     <meta charset="utf-8" />
@@ -12,7 +10,6 @@
     <link rel="stylesheet" type="text/css" media="screen" href="/fe/css/main.css" />
     <link rel="shortcut icon" type="image/x-icon" href="/fe/image/favicon.ico">
 </head>
-
 <body>
     <!-- Begin JB's Body Wrapper Area -->
     <div class="wrapper">
@@ -28,11 +25,9 @@
             </div>
         </div>
         <!-- Loading Area End Here -->
-
         <!-- Begin JB's Header Area -->
         <th:block th:insert="/layoutShop/header.html"></th:block>
         <!-- JB's Header Area End Here -->
-
         <!-- Begin JB's Breadcrumb Area -->
         <div class="breadcrumb-area">
             <div class="container">
@@ -45,7 +40,6 @@
             </div>
         </div>
         <!-- JB's Breadcrumb Area End Here -->
-
         <!-- Begin JB's Login Register Area -->
         <div class="jb-login-register_area">
             <div class="container">
@@ -53,17 +47,22 @@
                 <!--     Login   -->
                     <div class="col-sm-12 col-md-12 col-xs-12 col-lg-6">
                         <!-- Login Form s-->
-                        <form th:action="@{/login}" method="post">
+                        <form th:action="@{/login}" method="post" onsubmit="handleLogin(event, this)">
                             <div class="login-form">
                                 <h4 class="login-title">Login</h4>
                                 <div class="row">
+                                    <div class="col-md-12 col-12 text-danger" th:if="${errorMessage != null}">
+                                        <label th:text="${errorMessage}"></label>
+                                    </div>
                                     <div class="col-md-12 col-12">
                                         <label>Username</label>
-                                        <input type="text" placeholder="Username" name="username">
+                                        <input id="inputUserName" type="text" placeholder="Username" name="username">
+                                        <label class="text-danger" id="errorUserName" style="display: none"></label>
                                     </div>
                                     <div class="col-12 mb--20">
                                         <label>Password</label>
-                                        <input type="password" placeholder="Password" name="password">
+                                        <input id="inputPassword" type="password" placeholder="Password" name="password">
+                                        <label class="text-danger" id="errorPassWord" style="display: none"></label>
                                     </div>
                                     <div class="col-md-8">
                                         <div class="check-box">
@@ -87,18 +86,43 @@
             </div>
         </div>
         <!-- JB's Login Register Area  End Here -->
-
         <!-- Begin JB's Footer Area -->
         <th:block th:insert="/layoutShop/footer.html"></th:block>
         <!-- JB's Footer Area End Here -->
-
     </div>
     <!-- JB's Body Wrapper Area End Here -->
     <script src="/fe/js/plugins.min.js"></script>
     <script src="/fe/js/ajax-mail.js"></script>
     <script src="/fe/js/main.js"></script>
+    <script th:inline="javascript">
+        function handleLogin(event, loginForm) {
+            event.preventDefault();
+            var errorUserName = document.getElementById("errorUserName");
+            var errorPassword = document.getElementById("errorPassWord");
+            var inputUserName = document.getElementById("inputUserName").value.trim();
+            var inputPassword = document.getElementById("inputPassword").value.trim();
+
+            errorUserName.style.display = "none";
+            errorUserName.innerText = ''
+            errorPassword.style.display = "none";
+            errorPassword.innerText = ''
+
+            if(inputUserName === '' && inputPassword === '') {
+                errorUserName.style.display = "block";
+                errorUserName.innerText = "Tên người không được bỏ trống!!!"
+                errorPassword.style.display = "block";
+                errorPassword.innerText = "PassWord không được bỏ trống!!!"
+            } else if (inputUserName === '') {
+                errorUserName.style.display = "block";
+                errorUserName.innerText = "Tên người không được bỏ trống!!!"
+            } else if (inputPassword === '') {
+                errorPassword.style.display = "block";
+                errorPassword.innerText = "PassWord không được bỏ trống!!!"
+            } else {
+                loginForm.submit();
+            }
+        }
+    </script>
 </body>
-
-
 <!-- Mirrored from htmldemo.net/jobaria/jobaria/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 21 /feb 2024 06:30:10 GMT -->
 </html>
