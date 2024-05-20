@@ -21,7 +21,7 @@ public class CategoryController {
 
     @GetMapping("/category")
     public String categoryPage(Model model,
-        @RequestParam(defaultValue = "2", name = "limit") int limit,
+        @RequestParam(defaultValue = "5", name = "limit") int limit,
         @RequestParam(defaultValue = "0", name = "page") int page,
         @RequestParam(defaultValue = "id", name = "sort") String sort,
         @RequestParam(defaultValue = "asc", name = "order") String order,
@@ -51,6 +51,7 @@ public class CategoryController {
     @GetMapping("/category/add-category")
     public String add(Model model) {
         Category category = new Category();
+        category.setStatus(true);
         model.addAttribute("category", category);
         return "/admin/category/add-category";
     }
