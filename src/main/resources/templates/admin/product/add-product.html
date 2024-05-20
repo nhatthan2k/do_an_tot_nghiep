@@ -69,7 +69,7 @@
                                 <div class="col-md-6 col-12 mb-3">
                                     <label class="form-label">Product Name</label>
                                     <input type="text" class="form-control" th:field="*{name}">
-<!--                                    <small class="form-text text-danger" th:errors="*{productName}"></small>-->
+                                    <small class="form-text text-danger" th:errors="*{name}"></small>
                                 </div>
 
                                 <div class="col-md-12 mb-3">
@@ -79,12 +79,12 @@
                                 <div class="col-md-6 col-12 mb-3">
                                     <label class="form-label">Price</label>
                                     <input type="number" class="form-control" th:field="*{price}">
-<!--                                    <small class="form-text text-danger" th:errors="*{price}"></small>-->
+                                    <small class="form-text text-danger" th:errors="*{price}"></small>
                                 </div>
                                 <div class="col-md-6 col-12 mb-3">
                                     <label class="form-label">Stock</label>
                                     <input type="number" class="form-control" th:field="*{quantity}">
-<!--                                    <small class="form-text text-danger" th:errors="*{stock}"></small>-->
+                                    <small class="form-text text-danger" th:errors="*{quantity}"></small>
                                 </div>
                                 <div class="col-md-3 mb-3">
                                     <img th:src="${product.image}" width="100%" id="previewImage">
@@ -93,7 +93,7 @@
                                     <label class="form-label">Image</label>
                                     <input type="file" class="form-control" th:name="imageProduct" onchange="handleInputImage()">
                                     <input type="hidden" class="form-control" th:field="*{image}" id="imageChoose">
-<!--                                    <small class="form-text text-danger" th:errors="*{imageUrl}"></small>-->
+                                    <small class="form-text text-danger" th:errors="*{image}"></small>
                                 </div>
                                 <div class="col-md-9 mb-3">
                                     <label>Category Name</label>

@@ -11,6 +11,7 @@ import java.util.List;
 public interface ProductService {
     Page<Product> getAll(Pageable pageable, String nameSearch);
     Product save(Product product);
+    Product save(ProductRequest productRequest);
     Product findById(Long id);
     void delete(Long id);
     Page<Product> searchByName(String name, Pageable pageable);

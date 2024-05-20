@@ -1,7 +1,9 @@
 package com.ra.Controller.admin;
 
+import com.ra.model.dto.request.CategoryRequest;
 import com.ra.model.entity.Category;
 import com.ra.service.CategoryService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -9,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -50,14 +53,18 @@ public class CategoryController {
 //  add Category
     @GetMapping("/category/add-category")
     public String add(Model model) {
-        Category category = new Category();
+        CategoryRequest category = new CategoryRequest();
         category.setStatus(true);
         model.addAttribute("category", category);
         return "/admin/category/add-category";
     }
 
     @PostMapping("/category/add-category")
-    public String save(@ModelAttribute("category") Category category) {
+    public String save(@Valid @ModelAttribute("category") CategoryRequest category, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+            return "/admin/category/add-category";
+        }
+
         categoryService.save(category);
         return "redirect:/admin/category";
     }

@@ -19,6 +19,8 @@ import java.util.UUID;
 public class ProductServiceIMPL implements ProductService {
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private CategoryService categoryService;
 
     @Override
     public Page<Product> getAll(Pageable pageable, String nameSearch) {
@@ -28,6 +30,18 @@ public class ProductServiceIMPL implements ProductService {
 
     @Override
     public Product save(Product product) {
+        return productRepository.save(product);
+    }
+
+    @Override
+    public Product save(ProductRequest productRequest) {
+        Product product = new Product();
+        product.setName(productRequest.getName());
+        product.setDescription(productRequest.getDescription());
+        product.setPrice(productRequest.getPrice());
+        product.setQuantity(productRequest.getQuantity());
+        product.setImage(productRequest.getImage());
+        product.setCategory(productRequest.getCategory());
         return productRepository.save(product);
     }
 

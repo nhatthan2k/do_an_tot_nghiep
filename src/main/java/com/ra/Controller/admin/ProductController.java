@@ -1,9 +1,11 @@
 package com.ra.Controller.admin;
 
+import com.ra.model.dto.request.ProductRequest;
 import com.ra.model.entity.Category;
 import com.ra.model.entity.Product;
 import com.ra.service.CategoryService;
 import com.ra.service.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -13,6 +15,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -65,13 +68,19 @@ public class ProductController {
     public String add(Model model) {
         List<Category> categories = categoryService.getbyStatus();
         model.addAttribute("categories", categories);
-        Product product = new Product();
+        ProductRequest product = new ProductRequest();
         model.addAttribute("product", product);
         return "/admin/product/add-product";
     }
 
     @PostMapping("/product/add-product")
-    public String save(@ModelAttribute("product") Product product, @RequestParam("imageProduct") MultipartFile file) {
+    public String save(@Valid @ModelAttribute("product") ProductRequest product, BindingResult bindingResult, @RequestParam("imageProduct") MultipartFile file, Model model) {
+        if (bindingResult.hasErrors()) {
+            List<Category> categories = categoryService.getbyStatus();
+            model.addAttribute("categories", categories);
+            return "/admin/product/add-product";
+        }
+
         String fileName = file.getOriginalFilename();
         try {
             FileCopyUtils.copy(file.getBytes(),new File(pathUpload+fileName));

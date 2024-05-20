@@ -33,6 +33,15 @@ public class CategoryServiceIMPL implements CategoryService {
     }
 
     @Override
+    public Category save(CategoryRequest categoryRequest) {
+        Category category = new Category();
+        category.setName(categoryRequest.getName());
+        category.setDescription(categoryRequest.getDescription());
+        category.setStatus(categoryRequest.isStatus());
+        return categoryRepository.save(category);
+    }
+
+    @Override
     public Category findById(Long id) {
         return categoryRepository.findById(id).orElse(null);
     }
