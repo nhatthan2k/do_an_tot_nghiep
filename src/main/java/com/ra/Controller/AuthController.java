@@ -1,10 +1,8 @@
 package com.ra.Controller;
 
 import com.ra.model.dto.request.UserRegister;
-import com.ra.model.entity.Users;
 import com.ra.repository.UserRepository;
 import com.ra.service.UserService;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
