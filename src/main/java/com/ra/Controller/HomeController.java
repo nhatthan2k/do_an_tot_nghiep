@@ -111,4 +111,19 @@ public class HomeController {
         model.addAttribute("products", products);
         return "/shop/single-product";
     }
+
+    @GetMapping("/blog")
+    public String blogPage() {
+        return "/shop/blog";
+    }
+
+    @GetMapping("/contact")
+    public String contactPage() {
+        return "/shop/contact";
+    }
+
+    @GetMapping("/about")
+    public String aboutPage() {
+        return "/shop/about";
+    }
 }
