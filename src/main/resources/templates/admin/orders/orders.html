@@ -87,6 +87,7 @@
                                 <th>Note</th>
                                 <th>Created Date</th>
                                 <th style="width: 160px">Total</th>
+                                <th>PayStatus</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -103,6 +104,12 @@
                                     <td class="w-auto"
                                         th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT') + ' USD'}"></td>
                                     <td>
+                                        <button class="btn"
+                                            th:classappend="${item.payStatus ? 'btn-success' : 'btn-danger'}" disabled>
+                                            <span th:text="${item.payStatus ? 'Đã thanh toán': 'Chưa thanh toán'}"></span>
+                                        </button>
+                                    </td>
+                                    <td>
                                         <button class="btn" disabled>
 <!--                                           th:classappend="${item.status == 0 ? 'btn-secondary' : (item.status == 1 ? 'btn-success' : 'btn-danger')}"-->
 <!--                                           >-->
@@ -110,9 +117,13 @@
                                         </button>
                                     </td>
                                     <td>
-                                        <a class="btn btn-outline-primary"
+                                        <a class="btn btn-outline-primary" style="margin-bottom: 5px"
                                            th:href="@{/admin/orders/details/{id}(id=${item.id})}"
                                         >Details
+                                        </a>
+                                        <a class="btn btn-success"
+                                           th:href="@{/admin/orders/confirm/{id}(id=${item.id})}"
+                                        >Xác nhận
                                         </a>
                                     </td>
                                 </tr>

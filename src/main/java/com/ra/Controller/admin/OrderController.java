@@ -1,5 +1,6 @@
 package com.ra.Controller.admin;
 
+import com.ra.model.entity.EOrderStatus;
 import com.ra.model.entity.OrderDetail;
 import com.ra.model.entity.Orders;
 import com.ra.service.OrderDetailService;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admin/orders")
 public class OrderController {
     @Autowired
     private OrderService orderService;
@@ -27,7 +28,7 @@ public class OrderController {
     @Autowired
     private OrderDetailService orderDetailService;
 
-    @GetMapping("/orders")
+    @GetMapping("")
     public String ordersPage(
             @RequestParam(defaultValue = "5", name = "limit") int limit,
             @RequestParam(defaultValue = "0", name = "page") int page,
@@ -49,12 +50,22 @@ public class OrderController {
         return "/admin/orders/orders";
     }
 
-    @GetMapping("/orders/details/{id}")
+    @GetMapping("/details/{id}")
     public String ordersDetailsPage(@PathVariable Long id, Model model) {
         List<OrderDetail> orderDetails = orderDetailService.getByOrderId(id);
         model.addAttribute("orderDetails", orderDetails);
         Orders order = orderService.findById(id);
         model.addAttribute("order", order);
         return "/admin/orders/ordersDetails";
+    }
+
+    @GetMapping("/confirm/{id}")
+    public String confirmOrder(@PathVariable Long id) {
+        Orders order = orderService.findById(id);
+        if (order != null && order.getStatus() == EOrderStatus.WAITING) {
+            order.setStatus(EOrderStatus.CONFIRM);
+            orderService.save(order);
+        }
+        return "redirect:/admin/orders";
     }
 }

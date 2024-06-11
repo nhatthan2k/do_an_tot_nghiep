@@ -29,11 +29,12 @@ public class OrderServiceIMPL implements OrderService {
     }
 
     @Override
-    public Orders add(Users users, Double totalPrice) {
+    public Orders add(Users users, Double totalPrice, boolean payStatus) {
         Orders order = Orders.builder()
                 .orderNumber(UUID.randomUUID().toString())
                 .users(users)
                 .price(totalPrice)
+                .payStatus(payStatus)
                 .status(EOrderStatus.WAITING)
                 .receiveName(users.getFullName())
                 .receiveAddress(users.getAddress())

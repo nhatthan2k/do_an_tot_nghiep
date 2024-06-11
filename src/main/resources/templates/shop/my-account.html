@@ -102,15 +102,15 @@
                                                 <th>DATE</th>
                                                 <th>STATUS</th>
                                                 <th>TOTAL</th>
-                                                <th></th>
+                                                <th>Action</th>
                                             </tr>
                                             <tr th:each="item:${orders}">
                                                 <td><a class="account-order-id" href="#" th:text="${item.orderNumber}"></a></td>
                                                 <td th:text="${item.created}"></td>
                                                 <td th:text="${item.status}"></td>
                                                 <td th:text="${item.price}"></td>
-                                                <td><a href="#"
-                                                       class="jb-btn jb-btn_dark jb-btn_sm"><span>View</span></a></td>
+                                                <td><a th:href="@{/user/orders/cancel/{id}(id=${item.id})}"
+                                                       class="jb-btn jb-btn_sm" style="color: #fff; background-color: #ff0000de"><span>Hủy</span></a></td>
                                             </tr>
                                             </tbody>
                                         </table>

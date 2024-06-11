@@ -11,7 +11,7 @@ import java.util.List;
 public interface OrderService {
     Page<Orders> findAll(Pageable pageable);
     List<Orders> getAll(Long userId);
-    Orders add(Users users, Double totalPrice);
+    Orders add(Users users, Double totalPrice, boolean payStatus);
     Orders getbySerial(Long userId, String serial);
     List<Orders> getByStatus(Long userId, EOrderStatus status);
     Orders save(Orders orders);

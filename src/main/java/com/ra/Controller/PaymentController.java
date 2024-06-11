@@ -83,7 +83,7 @@ public class PaymentController {
                 .mapToDouble(shopingCart -> shopingCart.getProduct().getPrice() * shopingCart.getQuantity())
                 .sum();
         //  tạo mới order
-        Orders order = orderService.add(user, totalPrice);
+        Orders order = orderService.add(user, totalPrice, true);
         //  tạo mới order detail
         for (ShopingCart shopingCart : shopingCarts) {
             int orderQuantity = shopingCart.getQuantity();

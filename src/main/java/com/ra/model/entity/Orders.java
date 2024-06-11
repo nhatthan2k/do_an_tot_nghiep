@@ -30,6 +30,8 @@ public class Orders {
     @Enumerated(EnumType.STRING)
     private EOrderStatus status;
 
+    private boolean payStatus;
+
     @Column(length = 100)
     private String note;
 
