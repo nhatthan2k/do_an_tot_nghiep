@@ -133,7 +133,7 @@ public class CartController {
     //  Xóa tất cả sản phẩm khỏi giỏ hàng
         shopingCarts.forEach(shopingCart -> shopingCartService.delete(shopingCart.getId()));
 
-        return "redirect:/";
+        return "redirect:/user/account";
     }
 
     @PostMapping("/updateQuantity/{productId}")

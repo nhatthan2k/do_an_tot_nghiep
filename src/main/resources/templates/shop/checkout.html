@@ -132,51 +132,57 @@
                             <div class="payment-method">
                                 <div class="payment-accordion">
                                     <div id="accordion">
-                                        <div class="card">
-                                            <div class="card-header" id="#payment-1">
-                                                <h5 class="panel-title">
-                                                    <a class="" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                        Direct Bank Transfer.
-                                                    </a>
-                                                </h5>
-                                            </div>
-                                            <div id="collapseOne" class="collapse show" data-bs-parent="#accordion">
-                                                <div class="card-body">
-                                                    <p>Make your payment directly into our bank account. Please use your Order ID as the payment
-                                                        reference. Your order won’t be shipped until the funds have cleared in our account.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card">
-                                            <div class="card-header" id="#payment-2">
-                                                <h5 class="panel-title">
-                                                    <a class="collapsed" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                                        Cheque Payment
-                                                    </a>
-                                                </h5>
-                                            </div>
-                                            <div id="collapseTwo" class="collapse" data-bs-parent="#accordion">
-                                                <div class="card-body">
-                                                    <p>Make your payment directly into our bank account. Please use your Order ID as the payment
-                                                        reference. Your order won’t be shipped until the funds have cleared in our account.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card">
-                                            <div class="card-header" id="#payment-3">
-                                                <h5 class="panel-title">
-                                                    <a class="collapsed" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                                        PayPal
-                                                    </a>
-                                                </h5>
-                                            </div>
-                                            <div id="collapseThree" class="collapse" data-bs-parent="#accordion">
-                                                <div class="card-body">
-                                                    <p>Make your payment directly into our bank account. Please use your Order ID as the payment
-                                                        reference. Your order won’t be shipped until the funds have cleared in our account.</p>
-                                                </div>
-                                            </div>
-                                        </div>
+<!--                                        <div class="card">-->
+<!--                                            <div class="card-header" id="#payment-1">-->
+<!--                                                <h5 class="panel-title">-->
+<!--                                                    <a class="" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">-->
+<!--                                                        Direct Bank Transfer.-->
+<!--                                                    </a>-->
+<!--                                                </h5>-->
+<!--                                            </div>-->
+<!--                                            <div id="collapseOne" class="collapse show" data-bs-parent="#accordion">-->
+<!--                                                <div class="card-body">-->
+<!--                                                    <p>Make your payment directly into our bank account. Please use your Order ID as the payment-->
+<!--                                                        reference. Your order won’t be shipped until the funds have cleared in our account.</p>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <div class="card">-->
+<!--                                            <div class="card-header" id="#payment-2">-->
+<!--                                                <h5 class="panel-title">-->
+<!--                                                    <a class="collapsed" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">-->
+<!--                                                        Cheque Payment-->
+<!--                                                    </a>-->
+<!--                                                </h5>-->
+<!--                                            </div>-->
+<!--                                            <div id="collapseTwo" class="collapse" data-bs-parent="#accordion">-->
+<!--                                                <div class="card-body">-->
+<!--                                                    <p>Make your payment directly into our bank account. Please use your Order ID as the payment-->
+<!--                                                        reference. Your order won’t be shipped until the funds have cleared in our account.</p>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <div class="card">-->
+<!--                                            <div class="card-header" id="#payment-3">-->
+<!--                                                <h5 class="panel-title">-->
+<!--                                                    <a class="collapsed" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">-->
+<!--                                                        PayPal-->
+<!--                                                    </a>-->
+<!--                                                </h5>-->
+<!--                                            </div>-->
+<!--                                            <div id="collapseThree" class="collapse" data-bs-parent="#accordion">-->
+<!--                                                <div class="card-body">-->
+<!--                                                    <p>Make your payment directly into our bank account. Please use your Order ID as the payment-->
+<!--                                                        reference. Your order won’t be shipped until the funds have cleared in our account.</p>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+
+                                        <label>Payment Methods:</label>
+                                        <select class="form-control" onchange="handleChangePayment(this.value)">
+                                            <option value="1">Direct payment</option>
+                                            <option value="2">PayPal</option>
+                                        </select>
                                     </div>
                                     <div class="order-button-payment">
                                         <input value="Place order" type="submit" onclick="handleCheckOutSubmit()">
@@ -190,6 +196,11 @@
         </div>
         <!-- JB's Checkout Area End Here -->
 
+        <form method="post" id="formPayment" th:action="@{/pay}" style="display: none">
+            <input type="text" th:value="${total}" name="price" />
+            <button type="submit"> Payment with Paypal </button>
+        </form>
+
         <!-- Begin JB's Footer Area -->
         <th:block th:insert="/layoutShop/footer.html"></th:block>
         <!-- JB's Footer Area End Here -->
@@ -200,8 +211,16 @@
     <script src="/fe/js/ajax-mail.js"></script>
     <script src="/fe/js/main.js"></script>
     <script th:inline="javascript">
+        let paymentType = '1';
+        function handleChangePayment(value) {
+            paymentType = value;
+        }
         function handleCheckOutSubmit() {
-            document.getElementById('formCheckOut').submit();
+            if (paymentType == '2') {
+                document.getElementById('formPayment').submit();
+            } else {
+                document.getElementById('formCheckOut').submit();
+            }
         }
     </script>
 </body>
