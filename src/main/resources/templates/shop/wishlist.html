@@ -38,8 +38,8 @@
             <div class="container">
                 <div class="breadcrumb-content">
                     <ul>
-                        <li><a href="/">Home</a></li>
-                        <li class="active">Wishlist</li>
+                        <li><a href="/">Trang Chủ</a></li>
+                        <li class="active">Yêu Thích</li>
                     </ul>
                 </div>
             </div>
@@ -56,12 +56,12 @@
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th class="jb-product_remove">remove</th>
-                                            <th class="jb-product-thumbnail">images</th>
-                                            <th class="cart-product-name">Product</th>
-                                            <th class="jb-product-price">Unit Price</th>
-                                            <th class="jb-product-stock-status">Stock Status</th>
-                                            <th class="jb-cart_btn">add to cart</th>
+                                            <th class="jb-product_remove">Xóa</th>
+                                            <th class="jb-product-thumbnail">Ảnh</th>
+                                            <th class="cart-product-name">Sản phẩm</th>
+                                            <th class="jb-product-price">Giá sản phẩm</th>
+                                            <th class="jb-product-stock-status">Trạng thái kho</th>
+                                            <th class="jb-cart_btn">Thêm giỏ hàng</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -71,9 +71,9 @@
                                             <td class="jb-product-thumbnail"><a href="javascript:void(0)"><img th:src="@{|/uploads/${item.product.image}|}" alt="Wishlist Thumbnail" style="width: 70px"></a></td>
                                             <td class="jb-product-name"><a href="javascript:void(0)" th:text="${item.product.name}"></a></td>
                                             <td class="jb-product-price"><span class="amount" th:text="${item.product.price}"></span></td>
-                                            <td class="jb-product-stock-status"><span class="in-stock">in stock</span></td>
+                                            <td class="jb-product-stock-status"><span class="in-stock">Trong Kho</span></td>
                                             <td class="jb-cart_btn"><a th:data-product-id="${item.product.id}"
-                                                                       href="javascript:void(0)" onclick="handleCartClick(this.getAttribute('data-product-id'))">add to cart</a></td>
+                                                                       href="javascript:void(0)" onclick="handleCartClick(this.getAttribute('data-product-id'))">Thêm giỏ hàng</a></td>
                                         </tr>
                                     </tbody>
                                 </table>

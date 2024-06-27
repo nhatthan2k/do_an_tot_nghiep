@@ -38,8 +38,8 @@
         <div class="container">
             <div class="breadcrumb-content">
                 <ul>
-                    <li><a href="/">Home</a></li>
-                    <li class="active">My Account</li>
+                    <li><a href="/">Trang Chủ</a></li>
+                    <li class="active">Tài Khoản</li>
                 </ul>
             </div>
         </div>
@@ -57,25 +57,25 @@
                             <li class="nav-item">
                                 <a class="nav-link active" id="account-dashboard-tab" data-bs-toggle="tab"
                                    href="#account-dashboard" role="tab" aria-controls="account-dashboard"
-                                   aria-selected="true">Dashboard</a>
+                                   aria-selected="true">Tài khoản</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="account-orders-tab" data-bs-toggle="tab" href="#account-orders"
-                                   role="tab" aria-controls="account-orders" aria-selected="false">Orders</a>
+                                   role="tab" aria-controls="account-orders" aria-selected="false">Đơn Hàng</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="account-address-tab" data-bs-toggle="tab"
                                    href="#account-address" role="tab" aria-controls="account-address"
-                                   aria-selected="false">Change PassWord</a>
+                                   aria-selected="false">Đổi Mật khẩu</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="account-details-tab" data-bs-toggle="tab"
                                    href="#account-details" role="tab" aria-controls="account-details"
-                                   aria-selected="false">Account Details</a>
+                                   aria-selected="false">Thông tin tài khoản</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="account-logout-tab" th:href="@{/logout}" role="tab"
-                                   aria-selected="false">Logout</a>
+                                   aria-selected="false">Đăng Xuất</a>
                             </li>
                         </ul>
                     </div>
@@ -84,25 +84,25 @@
                             <div class="tab-pane fade show active" id="account-dashboard" role="tabpanel"
                                  aria-labelledby="account-dashboard-tab">
                                 <div class="myaccount-dashboard">
-                                    <p>Hello <b th:text="${user.username}"></b></p>
-                                    <p>From your account dashboard you can view your recent orders, manage your shipping
-                                        and billing addresses and <a href="#">edit your password and account details</a>.
+                                    <p>Xin Chào <b th:text="${user.username}"></b></p>
+                                    <p>Từ bảng điều khiển tài khoản của bạn, bạn có thể xem các đơn đặt hàng gần đây, quản lý việc vận chuyển của mình
+                                        và địa chỉ thanh toán cũng như chỉnh sửa mật khẩu và chi tiết tài khoản của bạn</a>.
                                     </p>
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="account-orders" role="tabpanel"
                                  aria-labelledby="account-orders-tab">
                                 <div class="myaccount-orders">
-                                    <h4 class="small-title">MY ORDERS</h4>
+                                    <h4 class="small-title">Đơn hàng của tôi</h4>
                                     <div class="table-responsive">
                                         <table class="table table-bordered table-hover">
                                             <tbody>
                                             <tr>
-                                                <th>ORDER</th>
-                                                <th>DATE</th>
-                                                <th>STATUS</th>
-                                                <th>TOTAL</th>
-                                                <th>Action</th>
+                                                <th>Mã đơn hàng</th>
+                                                <th>Ngày tạo</th>
+                                                <th>Trạng thái</th>
+                                                <th>Tổng tiền</th>
+                                                <th>Hành động</th>
                                             </tr>
                                             <tr th:each="item:${orders}">
                                                 <td><a class="account-order-id" href="#" th:text="${item.orderNumber}"></a></td>
@@ -124,25 +124,23 @@
                                           th:object="${passwordRequest}" class="jb-form">
                                         <div class="jb-form-inner">
                                             <div class="single-input">
-                                                <label for="account-details-oldpass">Current Password(leave blank to
-                                                    leave unchanged)</label>
+                                                <label for="account-details-oldpass">Mật Khẩu Cũ</label>
                                                 <input type="password" id="account-details-oldpass"
                                                        th:field="*{oldPass}">
                                             </div>
                                             <div class="single-input">
-                                                <label for="account-details-newpass">New Password (leave blank to leave
-                                                    unchanged)</label>
+                                                <label for="account-details-newpass">Mật Khẩu Mới</label>
                                                 <input type="password" id="account-details-newpass"
                                                        th:field="*{newPass}">
                                             </div>
                                             <div class="single-input">
-                                                <label for="account-details-confpass">Confirm New Password</label>
+                                                <label for="account-details-confpass">Xác Nhận Mật Khẩu Mới</label>
                                                 <input type="password" id="account-details-confpass"
                                                        th:field="*{confirmNewPass}">
                                             </div>
                                             <div class="single-input">
                                                 <button class="jb-btn jb-btn_dark" type="submit">
-                                                    <span>SAVE CHANGES</span></button>
+                                                    <span>Lưu Thay Đổi</span></button>
                                             </div>
                                         </div>
                                     </form>
@@ -155,28 +153,27 @@
                                           enctype="multipart/form-data">
                                         <div class="jb-form-inner">
                                             <div class="single-input" style="margin-top: 20px;">
-                                                <label style="margin-bottom: 8px; display: block;">Fullname</label>
+                                                <label style="margin-bottom: 8px; display: block;">Họ và Tên</label>
                                                 <input style="padding: 0 15px; border: 1px solid #e5e5e5; height: 40px; width: 100%;"
                                                        type="text" placeholder="Full Name" th:field="*{fullName}">
                                             </div>
                                             <div class="single-input" style="margin-top: 20px;">
-                                                <label style="margin-bottom: 8px; display: block;">Username</label>
+                                                <label style="margin-bottom: 8px; display: block;">Tên Người Dùng</label>
                                                 <input style="padding: 0 15px; border: 1px solid #e5e5e5; height: 40px; width: 100%;"
                                                        type="text" placeholder="User Name" th:field="*{username}">
                                             </div>
                                             <div class="single-input" style="margin-top: 20px;">
-                                                <label style="margin-bottom: 8px; display: block;">Email
-                                                    Address*</label>
+                                                <label style="margin-bottom: 8px; display: block;">Địa chỉ email</label>
                                                 <input style="padding: 0 15px; border: 1px solid #e5e5e5; height: 40px; width: 100%;"
                                                        type="email" placeholder="Email Address" th:field="*{email}">
                                             </div>
                                             <div class="single-input" style="margin-top: 20px;">
-                                                <label style="margin-bottom: 8px; display: block;">Phone</label>
+                                                <label style="margin-bottom: 8px; display: block;">Số điện thoại</label>
                                                 <input style="padding: 0 15px; border: 1px solid #e5e5e5; height: 40px; width: 100%;"
                                                        type="number" placeholder="Phone" th:field="*{phone}">
                                             </div>
                                             <div class="single-input" style="margin-top: 20px;">
-                                                <label style="margin-bottom: 8px; display: block;">Address</label>
+                                                <label style="margin-bottom: 8px; display: block;">Địa chỉ</label>
                                                 <input style="padding: 0 15px; border: 1px solid #e5e5e5; height: 40px; width: 100%;"
                                                        type="text" placeholder="Address" th:field="*{address}">
                                             </div>
@@ -187,14 +184,14 @@
                                                     <input type="hidden" th:field="*{avatar}">
                                                 </div>
                                                 <div class="col-md-9 mb-3">
-                                                    <label class="form-label">Image</label>
+                                                    <label class="form-label">Ảnh</label>
                                                     <input type="file" class="form-control" th:name="imageUser"
                                                            id="imageInput">
                                                 </div>
                                             </div>
                                             <div class="single-input">
                                                 <button class="jb-btn jb-btn_dark" type="submit">
-                                                    <span>SAVE CHANGES</span></button>
+                                                    <span>Lưu Thay Đổi</span></button>
                                             </div>
                                         </div>
                                     </form>

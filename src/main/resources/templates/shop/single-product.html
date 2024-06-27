@@ -38,7 +38,7 @@
         <div class="container">
             <div class="breadcrumb-content">
                 <ul>
-                    <li><a href="/">Home</a></li>
+                    <li><a href="/">Trang Chủ</a></li>
                     <li class="active" th:text="${product.name}"></li>
                 </ul>
             </div>
@@ -66,7 +66,6 @@
                             <div class="sp-heading">
                                 <h5><a href="#" th:text="${product.name}"></a></h5>
                             </div>
-                            <span class="reference">Reference: demo_1</span>
                             <div class="rating-box">
                                 <ul>
                                     <li><i class="fa fa-star"></i></li>
@@ -83,7 +82,7 @@
                                 <p th:text="${product.description}"></p>
                             </div>
                             <div class="product-size_box">
-                                <span>Size</span>
+                                <span>Kích thước</span>
                                 <select class="nice-select">
                                     <option value="1">S</option>
                                     <option value="2">M</option>
@@ -92,7 +91,7 @@
                                 </select>
                             </div>
                             <div class="product-color_variation">
-                                <span>Color</span>
+                                <span>Màu sắc</span>
                                 <ul>
                                     <li class="active"><a href="#"></a></li>
                                     <li><a href="#"></a></li>
@@ -101,7 +100,7 @@
                             </div>
                             <div class="quantity">
                                 <form onsubmit="handleSubmit(event)">
-                                    <label>Quantity</label>
+                                    <label>Số lượng</label>
                                     <div class="cart-plus-minus">
                                         <input class="cart-plus-minus-box" th:data-product-id="${product.id}"
                                                id="input-quantity" value="1" type="text">
@@ -109,7 +108,7 @@
                                         <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
                                     </div>
                                     <div class="jb-quantity-btn_area">
-                                        <button class="jb-quantity_btn" type="submit">Add To Cart</button>
+                                        <button class="jb-quantity_btn" type="submit">Thêm giỏ hàng</button>
                                     </div>
                                 </form>
                             </div>
@@ -150,21 +149,16 @@
                                 <div class="wishlist-link_share"><a
                                         th:data-product-id="${product.id}"
                                         href="javascript:void(0)" onclick="handleWishListClick(this.getAttribute('data-product-id'))"><i
-                                        class="fa fa-heart"></i> Add to
-                                    wishlist</a>
+                                        class="fa fa-heart"></i> Thêm yêu thích</a>
                                 </div>
                             </div>
                             <div class="block-reassurance">
                                 <ul>
-                                    <li><i class="fas fa-check-square"></i>Security policy (edit with Customer
-                                        reassurance
-                                        module)
+                                    <li><i class="fas fa-check-square"></i>Chính sách bảo mật (sửa với module Đảm bảo với khách hàng)
                                     </li>
-                                    <li><i class="fa fa-truck"></i>Delivery policy (edit with Customer reassurance
-                                        module)
+                                    <li><i class="fa fa-truck"></i>Chính sách giao hàng (sửa với module Đảm bảo với khách hàng)
                                     </li>
-                                    <li><i class="fas fa-sync-alt"></i>Return policy (edit with Customer reassurance
-                                        module)
+                                    <li><i class="fas fa-sync-alt"></i>Chính sách hoàn trả (sửa với module Đảm bảo với khách hàng)
                                     </li>
                                 </ul>
                             </div>
@@ -375,7 +369,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section_title-2">
-                        <h4 th:text="${products.size()} + ' other products in the same category:'"></h4>
+                        <h4 th:text="${products.size()} + ' Sản Phẩm có cùng danh mục:'"></h4>
                     </div>
                 </div>
                 <div class="col-lg-12">
@@ -388,7 +382,7 @@
                                              alt="Product Image"
                                              style=" height: 100%; object-fit: cover;">
                                     </a>
-                                    <span class="sticker">New</span>
+                                    <span class="sticker">Mới</span>
                                 </div>
                                 <div class="jb-product_content">
                                     <div class="product-desc_info">
@@ -418,7 +412,7 @@
                                                     class="fa fa-heart"></i></a></li>
                                             <li><a class="jb-add_cart" th:data-product-id="${item.id}"
                                                    href="javascript:void(0)" onclick="handleCartClick(this.getAttribute('data-product-id'))"><i
-                                                    class="icon_cart_alt"></i>Add to cart</a></li>
+                                                    class="icon_cart_alt"></i>Thêm giỏ hàng</a></li>
                                             <li><a class="jb-sp_link"
                                                    th:href="@{/products/{productId}(productId=${item.id})}"><i
                                                     class="fa fa-copy"></i></a></li>

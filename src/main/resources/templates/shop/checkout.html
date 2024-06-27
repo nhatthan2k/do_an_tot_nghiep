@@ -43,8 +43,8 @@
             <div class="container">
                 <div class="breadcrumb-content">
                     <ul>
-                        <li><a href="/">Home</a></li>
-                        <li class="active">Checkout</li>
+                        <li><a href="/">Trang Chủ</a></li>
+                        <li class="active">Thanh toán</li>
                     </ul>
                 </div>
             </div>
@@ -58,29 +58,29 @@
                     <div class="col-lg-6 col-12">
                         <form action="/user/cart/checkout" th:object="${user}" method="POST" id="formCheckOut">
                             <div class="checkbox-form">
-                                <h3 style="margin-top: 15px;">Billing Details</h3>
+                                <h3 style="margin-top: 15px;">Chi tiết thanh toán</h3>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="checkout-form-list">
-                                            <label>Full Name <span class="required">*</span></label>
+                                            <label>Họ và Tên <span class="required">*</span></label>
                                             <input placeholder="" th:field="*{fullName}" type="text">
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="checkout-form-list">
-                                            <label>Address <span class="required">*</span></label>
+                                            <label>Địa chỉ <span class="required">*</span></label>
                                             <input placeholder="Street address" th:field="*{address}" type="text">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="checkout-form-list">
-                                            <label>Email Address <span class="required">*</span></label>
+                                            <label>Địa chỉ email <span class="required">*</span></label>
                                             <input placeholder="" th:field="*{email}" type="email">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="checkout-form-list">
-                                            <label>Phone <span class="required">*</span></label>
+                                            <label>Số điện thoại <span class="required">*</span></label>
                                             <input type="text" th:field="*{phone}">
                                         </div>
                                     </div>
@@ -88,8 +88,8 @@
                                 <div class="different-address">
                                     <div class="order-notes">
                                         <div class="checkout-form-list checkout-form-list-2">
-                                            <label>Order Notes</label>
-                                            <textarea id="checkout-mess" cols="30" rows="10" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
+                                            <label>Ghi Chú</label>
+                                            <textarea id="checkout-mess" cols="30" rows="10" placeholder="Ghi chú về đơn đặt hàng của bạn, ví dụ: ghi chú đặc biệt để giao hàng."></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -98,14 +98,14 @@
                     </div>
                     <div class="col-lg-6 col-12">
                         <div class="your-order">
-                            <h3>Your order</h3>
+                            <h3>Đơn Hàng Của Bạn</h3>
                             <div class="your-order-table table-responsive">
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th class="cart-product-name">Product</th>
-                                            <th class="cart-product-name">Quantity</th>
-                                            <th class="cart-product-total">Total</th>
+                                            <th class="cart-product-name">Sản phẩm</th>
+                                            <th class="cart-product-name">Số lượng</th>
+                                            <th class="cart-product-total">Tổng</th>
                                         </tr>
                                     </thead>
                                     <tbody th:each="item:${shopingCarts}">
@@ -117,12 +117,12 @@
                                     </tbody>
                                     <tfoot>
                                         <tr class="cart-subtotal">
-                                            <th>Cart Subtotal</th>
+                                            <th>Tổng giỏ hàng</th>
                                             <td></td>
                                             <td><span class="amount" th:text="${total}"></span></td>
                                         </tr>
                                         <tr class="order-total">
-                                            <th>Order Total</th>
+                                            <th>Tổng Đơn Hàng</th>
                                             <td></td>
                                             <td><strong><span class="amount" th:text="${total}"></span></strong></td>
                                         </tr>
@@ -178,14 +178,14 @@
 <!--                                            </div>-->
 <!--                                        </div>-->
 
-                                        <label>Payment Methods:</label>
+                                        <label>Phương Thức Thanh Toán:</label>
                                         <select class="form-control" onchange="handleChangePayment(this.value)">
-                                            <option value="1">Direct payment</option>
-                                            <option value="2">PayPal</option>
+                                            <option value="1">Thanh Toán Trưc Tiếp</option>
+                                            <option value="2">Thanh Toán Qua PayPal</option>
                                         </select>
                                     </div>
                                     <div class="order-button-payment">
-                                        <input value="Place order" type="submit" onclick="handleCheckOutSubmit()">
+                                        <input value="Thanh Toán Đơn Hàng" type="submit" onclick="handleCheckOutSubmit()">
                                     </div>
                                 </div>
                             </div>
