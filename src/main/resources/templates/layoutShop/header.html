@@ -23,8 +23,8 @@
                                        sec:authentication="principal.users.username" href="/admin"><i class="fa fa-user"
                                                                                                       x></i></a>
                                     <div sec:authorize="!isAuthenticated()">
-                                        <a href="/login">Login</a>
-                                        <a href="/register"></i>Register</a>
+                                        <a href="/login">Đăng Nhập</a>
+                                        <a href="/register"></i>Đăng Kí</a>
                                     </div>
                                 </li>
                                 <!-- Begin Currency Area -->
@@ -74,7 +74,7 @@
                 <div class="col-xl-7 col-lg-6 col-md-5 d-none d-lg-block">
                     <div class="header-search_area header-search_area-2">
                         <form class="header-search_box" th:action="@{/search}" method="get" onsubmit="return validateForm()">
-                            <input class="jb-search_input" type="text" placeholder="Enter your search key ..." name="keyword" style="width: 90%;">
+                            <input class="jb-search_input" type="text" placeholder="Tìm kiếm" name="keyword" style="width: 90%;">
                             <button class="jb-search_btn" type="submit"><i class="fa fa-search"></i></button>
                         </form>
                     </div>
@@ -84,7 +84,7 @@
                 <div class="col-lg-3 col-md-5 order-2 order-md-1 order-sm-2 d-lg-none">
                     <div class="category-menu category-menu-hidden">
                         <div class="category-heading">
-                            <h2 class="categories-toggle"><span>categories</span></h2>
+                            <h2 class="categories-toggle"><span>Danh mục</span></h2>
                         </div>
                         <div id="cate-toggle-2" class="category-menu-list">
                             <ul th:each="item : ${session.categories}">
@@ -104,7 +104,7 @@
                                     <div class="minicart-icon">
                                         <i class="fa fa-shopping-cart"></i>
                                     </div>
-                                    <div class="minicart-text"><span>My Cart</span></div>
+                                    <div class="minicart-text"><span>Gỏi Hàng</span></div>
                                 </a>
                             </li>
                         </ul>
@@ -128,7 +128,7 @@
                 <div class="col-lg-3 col-md-4">
                     <div class="category-menu category-menu-hidden">
                         <div class="category-heading">
-                            <h2 class="categories-toggle"><span>categories</span></h2>
+                            <h2 class="categories-toggle"><span>Danh mục</span></h2>
                         </div>
                         <div id="cate-toggle" class="category-menu-list">
                             <ul th:each="item : ${session.categories}">
@@ -144,11 +144,11 @@
                     <div class="hm-menu hm-menu-2">
                         <nav>
                             <ul>
-                                <li><a href="/">Home</a></li>
-                                <li><a href="/user/wish-list">WishList</a></li>
-                                <li><a href="/blog">Blog</a></li>
-                                <li><a href="/contact">Contact</a></li>
-                                <li><a href="/about">About Us</a></li>
+                                <li><a href="/">Trang chủ</a></li>
+                                <li><a href="/user/wish-list">Yêu Thích</a></li>
+                                <li><a href="/blog">Bài Viết</a></li>
+                                <li><a href="/contact">Liên Hệ</a></li>
+                                <li><a href="/about">Chi Tiết</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -174,21 +174,21 @@
                 <nav class="offcanvas-navigation">
                     <ul class="offcanvas-menu">
                         <li class="menu-item-has-children active"><a href="/"><span
-                                class="mm-text">Home</span></a>
+                                class="mm-text">Trang Chủ</span></a>
                         </li>
                         <li class="menu-item-has-children">
                             <a href="/user/wish-list">
-                                <span class="mm-text">WishList</span>
+                                <span class="mm-text">Yêu thích</span>
                             </a>
                         </li>
                         <li class="menu-item-has-children">
                             <a href="/blog">
-                                <span class="mm-text">Blog</span>
+                                <span class="mm-text">Bài Viết</span>
                             </a>
                         </li>
                         <li class="menu-item-has-children">
                             <a href="/">
-                                <span class="mm-text">Pages</span>
+                                <span class="mm-text">Trang</span>
                             </a>
                         </li>
                     </ul>

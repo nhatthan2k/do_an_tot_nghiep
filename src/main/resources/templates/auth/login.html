@@ -33,8 +33,8 @@
             <div class="container">
                 <div class="breadcrumb-content">
                     <ul>
-                        <li><a href="/">Home</a></li>
-                        <li class="active">Login</li>
+                        <li><a href="/">Trang chủ</a></li>
+                        <li class="active">Đăng Nhập</li>
                     </ul>
                 </div>
             </div>
@@ -49,34 +49,34 @@
                         <!-- Login Form s-->
                         <form th:action="@{/login}" method="post" onsubmit="handleLogin(event, this)">
                             <div class="login-form">
-                                <h4 class="login-title">Login</h4>
+                                <h4 class="login-title">Đăng Nhập</h4>
                                 <div class="row">
                                     <div class="col-md-12 col-12 text-danger" th:if="${errorMessage != null}">
                                         <label th:text="${errorMessage}"></label>
                                     </div>
                                     <div class="col-md-12 col-12">
-                                        <label>Username</label>
+                                        <label>Tên người dùng</label>
                                         <input id="inputUserName" type="text" placeholder="Username" name="username">
                                         <label class="text-danger" id="errorUserName" style="display: none"></label>
                                     </div>
                                     <div class="col-12 mb--20">
-                                        <label>Password</label>
+                                        <label>Mật Khẩu</label>
                                         <input id="inputPassword" type="password" placeholder="Password" name="password">
                                         <label class="text-danger" id="errorPassWord" style="display: none"></label>
                                     </div>
                                     <div class="col-md-8">
                                         <div class="check-box">
                                             <input type="checkbox" id="remember_me">
-                                            <label for="remember_me">Remember me</label>
+                                            <label for="remember_me">Ghi nhớ</label>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="forgotton-password_info">
-                                            <a href="#"> Forgotten pasward?</a>
+                                            <a href="#"> Quên mật khẩu?</a>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
-                                        <button type="submit" class="jb-login_btn">Login</button>
+                                        <button type="submit" class="jb-login_btn">Đăng Nhập</button>
                                     </div>
                                 </div>
                             </div>
